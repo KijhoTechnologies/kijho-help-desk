@@ -1,0 +1,3 @@
+help_desk_operator_tickets:
+    path:     /tickets
+    defaults: { _controller: HelpDeskBundle:Operator:tickets }

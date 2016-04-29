@@ -1,0 +1,30 @@
+<h2>All Tickets</h2>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Category</th>
+        <th>Subject</th>
+        <th>Priority</th>
+        <th>Client</th>
+        <th>Operator</th>
+        <th>Options</th>
+    </tr>
+    {% for ticket in tickets %}
+        <tr>
+            <td>{{ticket.creationDate|date('d/m/Y h:i a')}}</td>
+            <td>{{ticket.textStatus()}}</td>
+            <td>{{ticket.category.name}}</td>
+            <td>{{ticket.subject}}</td>
+            <td>{{ticket.textPriority()}}</td>
+            <td>{{ticket.client.name|default('Not assigned')}}</td>
+            <td>{{ticket.operator.name|default('Not assigned')}}</td>
+            <td>&nbsp;</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="8">No tickets yet</td>
+        </tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,22 @@
+help_desk_login:
+    path:     /login
+    defaults: { _controller: HelpDeskBundle:Security:login }
+    
+help_desk_login_check:
+    path:   /login_check
+    defaults: { _controller: HelpDeskBundle:Security:loginCheck }
+
+help_desk_logout:
+    path: /logout
+
+help_desk_redirect:
+    path:     /redirect
+    defaults: { _controller: HelpDeskBundle:Security:redirect }
+    
+help_desk_clients:
+    resource: "@HelpDeskBundle/Resources/config/routing/client.yml"
+    prefix:   /client
+    
+help_desk_operator:
+    resource: "@HelpDeskBundle/Resources/config/routing/operator.yml"
+    prefix:   /operator

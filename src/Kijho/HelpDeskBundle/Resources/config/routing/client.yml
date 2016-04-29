@@ -1,0 +1,3 @@
+help_desk_client_my_tickets:
+    path:     /myTickets
+    defaults: { _controller: HelpDeskBundle:Client:myTickets }

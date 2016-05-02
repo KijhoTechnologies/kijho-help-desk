@@ -1,0 +1,33 @@
+help_desk:
+    global:
+        date: "Date"
+        options: "Options"
+        menu_description: "Help Desk Menu"
+        all: "All"
+        open: "Open"
+        closed: "Closed"
+    
+    tickets:
+        my_tickets: "My Support Tickets"
+        open_tickets: "Open Tickets"
+        closed_tickets: "Closed Tickets"
+        status: "Status"
+        category: "Category"
+        subject: "Subject"
+        priority: "Priority"
+        operator: "Operator"
+        empty_list: "No tickets found"
+        
+        status_new: "New"
+        status_in_process: "In Process"
+        status_replied: "Replied"
+        status_closed: "Closed"
+        
+        priority_urgent: "Urgent"
+        priority_high: "High"
+        priority_medium: "Medium"
+        priority_low: "Low"
+        
+    ticket_creation:
+        new_ticket: "New Support Ticket"
+        create_a_ticket: "Create a Support Ticket"

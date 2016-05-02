@@ -216,16 +216,16 @@ class Ticket implements TicketInterface {
         $text = '';
         switch ($status) {
             case self::STATUS_NEW:
-                $text = 'New';
+                $text = 'help_desk.tickets.status_new';
                 break;
             case self::STATUS_IN_PROCESS:
-                $text = 'In Process';
+                $text = 'help_desk.tickets.status_in_process';
                 break;
             case self::STATUS_REPLIED:
-                $text = 'Replied';
+                $text = 'help_desk.tickets.status_replied';
                 break;
             case self::STATUS_CLOSED:
-                $text = 'Closed';
+                $text = 'help_desk.tickets.status_closed';
                 break;
             default:
                 break;
@@ -244,16 +244,16 @@ class Ticket implements TicketInterface {
         $text = '';
         switch ($priority) {
             case self::PRIORITY_URGENT:
-                $text = 'Urgent';
+                $text = 'help_desk.tickets.priority_urgent';
                 break;
             case self::PRIORITY_HIGH:
-                $text = 'High';
+                $text = 'help_desk.tickets.priority_high';
                 break;
             case self::PRIORITY_MEDIUM:
-                $text = 'Medium';
+                $text = 'help_desk.tickets.priority_medium';
                 break;
             case self::PRIORITY_LOW:
-                $text = 'Low';
+                $text = 'help_desk.tickets.priority_low';
                 break;
             default:
                 break;

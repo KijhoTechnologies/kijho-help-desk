@@ -1,0 +1,49 @@
+{% extends 'HelpDeskBundle:Client:main.html.twig' %}
+
+{% block main_content %}
+
+    <div class="row">
+        <aside class="col-md-3 sidebar">
+            {% include 'HelpDeskBundle:Client:menu.html.twig' %}
+        </aside>
+        <main class="col-md-9 cf create_ticket" id="articles-list">
+            <article class="post full-width">
+                <h1 class="create_ticket">Submit a Ticket
+                    <span class="pull-right">Welcome back, !</span>
+                </h1>
+
+
+                <form method="post">
+                    <input type="hidden" value="a295341447" name="nonce">
+                    <input type="hidden" value="wagon_create_support" name="form_identifier">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="subject">Subject*</label>
+                                <input type="text" name="subject" class="form-control" id="subject" value="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="related_url">Related URL</label>
+                                <input type="text" name="related_url" class="form-control" value="" id="related_url">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="summernote">Message*</label>
+                        <textarea name="message" id="summernote" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success btn-color-white" value="Submit">
+                    </div>
+                </form>
+
+            </article>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    tynyMceToElement('textarea', 200);
+{% endblock %}

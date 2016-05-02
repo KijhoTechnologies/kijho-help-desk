@@ -1,0 +1,33 @@
+help_desk:
+    global:
+        date: "Fecha"
+        options: "Opciones"
+        menu_description: "Menú de Soporte"
+        all: "Todos"
+        open: "Abiertos"
+        closed: "Cerrados"
+    
+    tickets:
+        my_tickets: "Mis Tickets de Soporte"
+        open_tickets: "Tickets Abiertos"
+        closed_tickets: "Tickets Cerrados"
+        status: "Estado"
+        category: "Categoría"
+        subject: "Asunto"
+        priority: "Prioridad"
+        operator: "Operador"
+        empty_list: "No se encontraron tickets"
+        
+        status_new: "Nuevo"
+        status_in_process: "En Proceso"
+        status_replied: "Respondido"
+        status_closed: "Cerrado"
+        
+        priority_urgent: "Urgente"
+        priority_high: "Alta"
+        priority_medium: "Media"
+        priority_low: "Baja"
+        
+    ticket_creation:
+        new_ticket: "Nuevo Ticket de Soporte"
+        create_a_ticket: "Crear un Ticket de Soporte"

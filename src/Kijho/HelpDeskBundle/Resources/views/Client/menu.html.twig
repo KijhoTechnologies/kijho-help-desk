@@ -1,0 +1,20 @@
+<div role="complementary" class="widget-area" id="secondary">
+    <aside class="widget widget_nav_menu" id="nav_menu-2">
+        <h4 class="widget-title">{{'help_desk.global.menu_description'|trans}}</h4>
+        <div class="menu-account-menu-container">
+            <ul class="menu" id="menu-account-menu">
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2778" id="menu-item-2778">
+                    <a href="{{path('help_desk_client_my_tickets',{'status' : 'all'})}}"><i class="fa fa-list"></i> {{'help_desk.tickets.my_tickets'|trans}}</a>
+                </li>
+                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2778" id="menu-item-2778">
+                    <a href="{{path('help_desk_client_new_ticket')}}"><i class="fa fa-star"></i> {{'help_desk.ticket_creation.new_ticket'|trans}}</a>
+                </li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2780" id="menu-item-2780">
+                    <a href="{{path('help_desk_client_my_tickets',{'status' : 'open'})}}"><i class="fa fa-envelope-o"></i> {{'help_desk.tickets.open_tickets'|trans}}</a>
+                </li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-2781" id="menu-item-2781">
+                    <a href="{{path('help_desk_client_my_tickets',{'status' : 'closed'})}}"><i class="fa fa-envelope"></i> {{'help_desk.tickets.closed_tickets'|trans}}</a>
+                </li>
+            </ul></div>
+    </aside>
+</div>

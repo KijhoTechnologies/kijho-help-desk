@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>{% block title %}Tickets{% endblock %}</title>     
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        
+        <link href="{{ asset('bundles/helpdesk/css/style-client.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ asset('bundles/helpdesk/css/themewagon.com.css') }}" type="text/css" rel="stylesheet"/>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    </head><!--/head-->
+    <body>
+        {% import 'HelpDeskBundle:Default:macros.html.twig' as macros  %}
+        <section class="container header">
+            {% block header_content %}
+            {% endblock %}
+        </section>
+
+        <section class="container">
+            {% block main_content %}
+            {% endblock %}
+        </section><!--/#about-us-->
+
+        <section id="bottom" class="wet-asphalt">
+            <div class="container">
+                <div class="row"><!--/.col-md-3-->
+                    {% block bottom_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </section><!--/#bottom-->
+
+
+        {% block javascripts %}
+            
+            <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/jquery-2.1.4.min.js') }}"></script>
+            
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            
+            <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/bootbox.min.js') }}"></script>
+            
+            <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/js-webshim/minified/polyfiller.js') }}"></script>
+            
+            <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+            <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/utilities.js') }}"></script>
+            
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    webshims.polyfill();
+                    {% block scripts %}
+                    {% endblock %}
+                });
+            </script>
+           
+        {% endblock %}
+    </body>
+</html>

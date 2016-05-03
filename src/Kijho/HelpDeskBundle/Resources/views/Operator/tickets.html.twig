@@ -1,30 +1,62 @@
-<h2>All Tickets</h2>
+{% extends 'HelpDeskBundle:Default:main.html.twig' %}
 
-<table border="1">
-    <tr>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Category</th>
-        <th>Subject</th>
-        <th>Priority</th>
-        <th>Client</th>
-        <th>Operator</th>
-        <th>Options</th>
-    </tr>
-    {% for ticket in tickets %}
-        <tr>
-            <td>{{ticket.creationDate|date('d/m/Y h:i a')}}</td>
-            <td>{{ticket.textStatus()}}</td>
-            <td>{{ticket.category.name}}</td>
-            <td>{{ticket.subject}}</td>
-            <td>{{ticket.textPriority()}}</td>
-            <td>{{ticket.client.name|default('Not assigned')}}</td>
-            <td>{{ticket.operator.name|default('Not assigned')}}</td>
-            <td>&nbsp;</td>
-        </tr>
-    {% else %}
-        <tr>
-            <td colspan="8">No tickets yet</td>
-        </tr>
-    {% endfor %}
-</table>
+{% block title %}{{'help_desk.tickets.tickets'|trans}}{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <aside class="col-md-3 sidebar">
+            {% include 'HelpDeskBundle:Operator:menu.html.twig' %}
+        </aside>
+        <main class="col-md-9 ticket-list cf" id="articles-list">
+            <h3 id="public_tickets">{{'help_desk.tickets.tickets'|trans}}</h3>
+            <hr>
+            {{ filters.showMessage('operator_success_message', 'success')}}
+            {{ filters.showMessage('operator_error_message', 'danger')}}
+            <div class="home-theme-filter" style="text-align: left; margin-bottom: 10px;">
+                <a href="{{path('help_desk_operator_tickets',{'status' : 'all'})}}" class="{% if status == 'all' %}active{% endif %} pjax">{{'help_desk.global.all'|trans|upper}}</a>
+                <a href="{{path('help_desk_operator_tickets',{'status' : 'active'})}}" class="{% if status == 'active' %}active{% endif %} pjax">{{'help_desk.global.active'|trans|upper}}</a>
+                <a href="{{path('help_desk_operator_tickets',{'status' : 'closed'})}}" class="{% if status == 'closed' %}active{% endif %} pjax">{{'help_desk.global.closed'|trans|upper}}</a>
+            </div>
+
+            <article class="post full-width">
+
+                {% if tickets|length > 0 %}
+                    <table class="table table-striped">
+                        {% for ticket in tickets %}
+                            <tr>
+                                <td width="280px">
+                                    <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.client'|trans}} : </small> {{ticket.client.name|title}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.creation_date'|trans}} : </small> {{ticket.creationDate|date('d/m/Y h:i a')}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 
+                                        <label class="label {{ticket.getLabelClassByPriority()}}">{{ticket.textPriority()|trans}}</label>
+                                    </p>
+                                    {% if ticket.lastUpdate is not empty %}
+                                        <p class="ticket-description"><small>{{'help_desk.tickets.last_update'|trans}} : </small> {{ticket.lastUpdate|date('d/m/Y h:i a')}}</p>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.subject'|trans}} : </small> {{ticket.subject}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.email'|trans}} : </small> {{ticket.client.email|lower}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.category'|trans}} : </small> {{ticket.category.name}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.status'|trans}} : </small> 
+                                        <label class="label {{ticket.getLabelClassByStatus()}}">{{ticket.textStatus()|trans}}</label>
+                                    </p>
+                                    {% if ticket.operatorId is not empty %}
+                                        <p class="ticket-description"><small>{{'help_desk.tickets.operator'|trans}} : </small> {{ticket.operator.name|default('Not Assigned')}}</p>
+                                    {% endif %}
+                                    
+                                </td>
+                                <td class="ticket-options" width="110px">
+                                    <a class="btn btn-sm" href="{{path('help_desk_operator_tickets_view',{'id':ticket.id})}}"><i class="fa fa-eye"></i> {{'help_desk.global.view'|trans}}</a><br>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>{{'help_desk.tickets.empty_list'|trans}}</p>
+                {% endif %}
+            </article>
+        </main>
+    </div><!-- row -->
+{% endblock %}

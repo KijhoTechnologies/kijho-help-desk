@@ -1,0 +1,17 @@
+<div role="complementary" class="widget-area" id="secondary">
+    <aside class="widget widget_nav_menu col-xs-12" id="nav_menu-2">
+        <h4 class="widget-title"><i class="fa fa-user-md"></i> {{app.user.name}}</h4>
+        <div class="menu-account-menu-container">
+            <ul class="menu" id="menu-account-menu">
+                <li class="col-md-12 col-xs-6 menu-item menu-item-type-post_type menu-item-object-page menu-item-2778" id="menu-item-2778">
+                    <a href="{{path('help_desk_operator_tickets',{'status' : 'all'})}}"><i class="fa fa-list"></i> {{'help_desk.tickets.tickets'|trans}}</a>
+                </li>
+                <li class="col-md-12 col-xs-6 menu-item menu-item-type-custom menu-item-object-custom menu-item-2780" id="menu-item-2780">
+                    <a href="{{path('help_desk_operator_tickets',{'status' : 'active'})}}"><i class="fa fa-envelope-o"></i> {{'help_desk.tickets.active_tickets'|trans}}</a>
+                </li>
+                <li class="col-md-12 col-xs-6 menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-2781" id="menu-item-2781">
+                    <a href="{{path('help_desk_operator_tickets',{'status' : 'closed'})}}"><i class="fa fa-envelope"></i> {{'help_desk.tickets.closed_tickets'|trans}}</a>
+                </li>
+            </ul></div>
+    </aside>
+</div>

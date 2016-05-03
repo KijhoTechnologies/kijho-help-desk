@@ -15,7 +15,7 @@ class ClientController extends Controller {
      * Constantes para variables de busqueda para los estados de los tickets
      */
     const STATUS_ALL = 'all';
-    const STATUS_OPEN = 'open';
+    const STATUS_ACTIVE = 'active';
     const STATUS_CLOSED = 'closed';
 
     /**
@@ -24,27 +24,28 @@ class ClientController extends Controller {
      * @param string $status estado de los tickets a listar
      * @return type
      */
-    public function myTicketsAction($status = null) {
+    public function myTicketsAction($status = self::STATUS_ALL) {
+        
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException('Access Denied. You must be logged in');
+        }
+        
         $em = $this->getDoctrine()->getManager();
 
         $search = array(
             'clientId' => $this->getUser()->getId(),
         );
 
-        if ($status) {
-            if ($status == self::STATUS_OPEN) {
-                $search['status'] = array(
-                    Entity\Ticket::STATUS_NEW,
-                    Entity\Ticket::STATUS_IN_PROCESS,
-                    Entity\Ticket::STATUS_REPLIED
-                );
-            } elseif ($status == self::STATUS_CLOSED) {
-                $search['status'] = array(
-                    Entity\Ticket::STATUS_CLOSED
-                );
-            }
-        } else {
-            $status = self::STATUS_ALL;
+        if ($status == self::STATUS_ACTIVE) {
+            $search['status'] = array(
+                Entity\Ticket::STATUS_NEW,
+                Entity\Ticket::STATUS_IN_PROCESS,
+                Entity\Ticket::STATUS_REPLIED
+            );
+        } elseif ($status == self::STATUS_CLOSED) {
+            $search['status'] = array(
+                Entity\Ticket::STATUS_CLOSED
+            );
         }
 
         $order = array('creationDate' => 'DESC');
@@ -69,6 +70,10 @@ class ClientController extends Controller {
      */
     public function newSupportTicketAction(Request $request) {
 
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException('Access Denied. You must be logged in');
+        }
+        
         $ticket = new Entity\Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
 
@@ -97,16 +102,24 @@ class ClientController extends Controller {
     }
 
     /**
-     * Permite visaulizar los detalles de un ticket
+     * Permite visualizar los detalles de un ticket
      * @param Request $request
      * @param type $id
      * @return type
      */
     public function viewTicketAction(Request $request, $id) {
+        
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException('Access Denied. You must be logged in');
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $ticket = $em->getRepository('HelpDeskBundle:Ticket')->find($id);
 
         if ($ticket && $ticket->getClientId() == $this->getUser()->getId()) {
+            
+            $ticket->setClient($this->container->get('ticket_provider')->getTicketClient($ticket->getClientId()));
+            $ticket->setOperator($this->container->get('ticket_provider')->getTicketOperator($ticket->getOperatorId()));
             
             //creamos el formulario para la creacion de comentarios del cliente
             $ticketComment = new Entity\TicketComment();

@@ -5,20 +5,20 @@
 {% block main_content %}
     <div class="row">
         <aside class="col-md-3 sidebar">
-            {% include 'HelpDeskBundle:Client:menu.html.twig' %}
+            {% include 'HelpDeskBundle:Operator:menu.html.twig' %}
         </aside>
         <main class="col-md-9 cf create_ticket" id="articles-list">
             <article class="post full-width">
                 <h1 class="create_ticket">{{'help_desk.global.ticket'|trans}} # {{ticket.id}} ({{ticket.textStatus()|trans}})
                     <span class="pull-right"></span>
                 </h1>
-                {{ filters.showMessage('client_success_message', 'success')}}
-                {{ filters.showMessage('client_error_message', 'danger')}}
+                {{ filters.showMessage('operator_success_message', 'success')}}
+                {{ filters.showMessage('operator_error_message', 'danger')}}
                 <table class="table table-striped">
                     <tr>
                         <td width="350px">
                             <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
-                            <br>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.client'|trans}} : </small> {{ticket.client.name|title}}</p>
                             <p class="ticket-description"><small>{{'help_desk.tickets.creation_date'|trans}} : </small>{{ticket.creationDate|date('d/m/Y h:i a')}}</p>
                             <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 
                                 <label class="label {{ticket.getLabelClassByPriority()}}">{{ticket.textPriority()|trans}}</label>
@@ -29,6 +29,7 @@
                         </td>
                         <td>
                             <p class="ticket-description"><small>{{'help_desk.tickets.subject'|trans}} : </small> {{ticket.subject}}</p>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.email'|trans}} : </small> {{ticket.client.email|lower}}</p>
                             <p class="ticket-description"><small>{{'help_desk.tickets.category'|trans}} : </small> {{ticket.category.name}}</p>
                             <p class="ticket-description"><small>{{'help_desk.tickets.status'|trans}} : </small> 
                                 <label class="label {{ticket.getLabelClassByStatus()}}">{{ticket.textStatus()|trans}}</label>
@@ -56,19 +57,19 @@
                         {% endif %}
                         <ol class="commentlist">
                             {% for comment in comments %}
-                                {% set commentByClient = false %}
-                                {% if comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_CLIENT') %}
+                                {% set commentByAdmin = false %}
+                                {% if comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_ADMIN') %}
                                     <ul class="children">
-                                    {% set commentByClient = true %}
+                                    {% set commentByAdmin = true %}
                                 {% endif %}
                                     
                                 <li id="comment-{{comment.id}}" class="comment even thread-even depth-1 parent">
-                                    <div class="comment-body {% if commentByClient == true %}client-bg-color{% endif %}" id="div-comment-{{comment.id}}">
+                                    <div class="comment-body {% if commentByAdmin == true %}client-bg-color{% endif %}" id="div-comment-{{comment.id}}">
                                         <div class="comment-author vcard">
-                                            {% if commentByClient == true %}
-                                                <cite class="fn">{{comment.client}}</cite> 
+                                            {% if commentByAdmin == true %}
+                                                <cite class="fn">{{comment.operator}}</cite> 
                                             {% else %}
-                                                <cite class="fn">{{comment.operator}}</cite>     
+                                                <cite class="fn">{{comment.client}}</cite> 
                                             {% endif %}
                                             <span class="says">{{'help_desk.ticket_comment.says'|trans}}:</span>		
                                         </div>
@@ -81,8 +82,8 @@
 
                                         <p>{{comment.comment|raw}}</p>
                                         
-                                        {% if loop.index == comments|length and commentByClient == false 
-                                            and ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
+                                        {% if loop.index == comments|length and commentByAdmin == false 
+                                                and ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
                                             <div class="reply pull-right {% if comment.isReaded %}margin-negative{% endif %}">
                                                 <a aria-label="Reply to Chris" href="javascript:void(0);" class="comment-reply-link" rel="nofollow" title="{{'help_desk.ticket_comment.reply'|trans}}"><i class="fa fa-reply"></i></a>		
                                             </div>
@@ -94,7 +95,7 @@
                                     </div>
                                 </li>
                                 
-                                {% if commentByClient == true %}
+                                {% if commentByAdmin == true %}
                                     </ul>
                                 {% endif %}
                             {% endfor %}
@@ -108,13 +109,6 @@
                                         {{ form_errors(form_comment.comment) }}
                                     </div>
                                     <div class="form-group">
-                                        {{ form_label(form_comment.closeTicket, ' ', {'label_attr':{'class':'hidden'}})}}
-                                        <div class="checkbox" style="width: 50%; float: left;">
-                                            <label>
-                                                {{ form_widget(form_comment.closeTicket, {'attr':{'class':''}}) }} {{'help_desk.ticket_comment.close_ticket'|trans}}
-                                            </label>
-                                        </div>
-                                        {{ form_errors(form_comment.closeTicket) }}
                                         {{ form_widget(form_comment.submit, {'attr':{'class':'btn btn-success btn-color-white pull-right'}}) }}
                                     </div>
                                 {{ form_end(form_comment) }}
@@ -132,6 +126,6 @@
 {% block scripts %}
     
     $(".comment-reply-link").click(function() {
-        $("#helpdeskbundle_client_ticket_comment_type_comment").focus();
+        $("#helpdeskbundle_operator_ticket_comment_type_comment").focus();
     });
 {% endblock %}

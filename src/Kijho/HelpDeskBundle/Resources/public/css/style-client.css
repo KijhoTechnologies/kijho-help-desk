@@ -26,3 +26,8 @@ and open the template in the editor.
 .ticket-options a {
     font-size: 14px !important;
 }
+
+div.margin-negative {
+    margin-left: 40px;
+    margin-top: -10px !important;
+}

@@ -1,3 +1,7 @@
 help_desk_operator_tickets:
-    path:     /tickets
+    path:     /tickets/{status}
     defaults: { _controller: HelpDeskBundle:Operator:tickets }
+    
+help_desk_operator_tickets_view:
+    path:     /tickets/{id}/view
+    defaults: { _controller: HelpDeskBundle:Operator:viewTicket }

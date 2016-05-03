@@ -11,9 +11,17 @@ services:
         tags:
             - { name: form.type }
     
-    #servicio para pasarle el container al formulario de comentarios en tickets
-    help_desk.form.type.ticket_comment:
+    #servicio para pasarle el container al formulario de comentarios en tickets para el cliente
+    help_desk.client.form.type.ticket_comment:
         class: Kijho\HelpDeskBundle\Form\Client\TicketCommentType
+        arguments:
+            - "@service_container"
+        tags:
+            - { name: form.type }
+    
+    #servicio para pasarle el container al formulario de comentarios en tickets para el operador
+    help_desk.operator.form.type.ticket_comment:
+        class: Kijho\HelpDeskBundle\Form\Operator\TicketCommentType
         arguments:
             - "@service_container"
         tags:

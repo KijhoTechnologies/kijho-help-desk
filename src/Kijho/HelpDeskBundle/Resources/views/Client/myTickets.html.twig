@@ -1,15 +1,17 @@
 {% extends 'HelpDeskBundle:Client:main.html.twig' %}
 
-{% block main_content %}
+{% block title %}{{'help_desk.tickets.my_tickets'|trans}}{% endblock %}
 
+{% block main_content %}
     <div class="row">
         <aside class="col-md-3 sidebar">
             {% include 'HelpDeskBundle:Client:menu.html.twig' %}
         </aside>
         <main class="col-md-9 ticket-list cf" id="articles-list">
-
             <h3 id="public_tickets">{{'help_desk.tickets.my_tickets'|trans}}</h3>
             <hr>
+            {{ filters.showMessage('client_success_message', 'success')}}
+            {{ filters.showMessage('client_error_message', 'danger')}}
             <div class="home-theme-filter" style="text-align: left; margin-bottom: 10px;">
                 <a href="{{path('help_desk_client_my_tickets',{'status' : 'all'})}}" class="{% if status == 'all' %}active{% endif %} pjax">{{'help_desk.global.all'|trans|upper}}</a>
                 <a href="{{path('help_desk_client_my_tickets',{'status' : 'open'})}}" class="{% if status == 'open' %}active{% endif %} pjax">{{'help_desk.global.open'|trans|upper}}</a>
@@ -20,25 +22,32 @@
             <article class="post full-width">
 
                 {% if tickets|length > 0 %}
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>{{'help_desk.global.date'|trans}}</th>
-                            <th>{{'help_desk.tickets.status'|trans}}</th>
-                            <th>{{'help_desk.tickets.category'|trans}}</th>
-                            <th>{{'help_desk.tickets.subject'|trans}}</th>
-                            <th>{{'help_desk.tickets.priority'|trans}}</th>
-                            <th>{{'help_desk.tickets.operator'|trans}}</th>
-                            <th>{{'help_desk.global.options'|trans}}</th>
-                        </tr>
+                    <table class="table table-striped">
                         {% for ticket in tickets %}
                             <tr>
-                                <td>{{ticket.creationDate|date('d/m/Y h:i a')}}</td>
-                                <td>{{ticket.textStatus()|trans}}</td>
-                                <td>{{ticket.category.name}}</td>
-                                <td>{{ticket.subject}}</td>
-                                <td>{{ticket.textPriority()|trans}}</td>
-                                <td>{{ticket.operator.name|default('Not Assigned')}}</td>
-                                <td>&nbsp;</td>
+                                <td width="180px">
+                                    <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
+                                    <br>
+                                    <p class="ticket-description">{{ticket.creationDate|date('d/m/Y h:i a')}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 
+                                        <label class="label {{ticket.getLabelClassByPriority()}}">{{ticket.textPriority()|trans}}</label>
+                                    </p>
+                                </td>
+                                <td>
+                                    {{ticket.subject}}
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.category'|trans}} : </small> {{ticket.category.name}}</p>
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.status'|trans}} : </small> 
+                                        <label class="label {{ticket.getLabelClassByStatus()}}">{{ticket.textStatus()|trans}}</label>
+                                    </p>
+                                    {% if ticket.operatorId is not empty %}
+                                        <p class="ticket-description"><small>{{'help_desk.tickets.operator'|trans}} : </small> {{ticket.operator.name|default('Not Assigned')}}</p>
+                                    {% endif %}
+                                    
+                                </td>
+                                <td class="ticket-options" width="110px">
+                                    <a class="btn btn-sm"><i class="fa fa-eye"></i> {{'help_desk.global.view'|trans}}</a><br>
+                                    <a class="btn btn-sm"><i class="fa fa-times"></i> {{'help_desk.global.close'|trans}}</a><br>
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>

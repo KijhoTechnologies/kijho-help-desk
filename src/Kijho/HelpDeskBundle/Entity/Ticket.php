@@ -23,7 +23,7 @@ class Ticket implements TicketInterface {
     const STATUS_IN_PROCESS = 2;
     const STATUS_REPLIED = 3;
     const STATUS_CLOSED = 4;
-    
+
     /**
      * Constantes para las prioridades del ticket
      */
@@ -31,21 +31,20 @@ class Ticket implements TicketInterface {
     const PRIORITY_HIGH = 2;
     const PRIORITY_MEDIUM = 3;
     const PRIORITY_LOW = 4;
-    
-    
+
     /**
      * @ORM\Id
      * @ORM\Column(name="tick_id", type="integer")
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * Estado del Ticket
      * @ORM\Column(name="tick_status", type="integer", nullable=true)
      */
     protected $status;
-    
+
     /**
      * Categoria a la que esta asociado el ticket
      * @ORM\ManyToOne(targetEntity="Kijho\HelpDeskBundle\Entity\TicketCategory")
@@ -53,61 +52,60 @@ class Ticket implements TicketInterface {
      * @Assert\NotBlank()
      */
     protected $category;
-    
+
     /**
      * Asunto del Ticket
      * @ORM\Column(name="tick_subject", type="string", nullable=false)
      * @Assert\NotBlank()
      */
     protected $subject;
-    
+
     /**
      * Mensaje del Ticket
      * @ORM\Column(name="tick_body", type="text", nullable=false)
      * @Assert\NotBlank()
      */
     protected $body;
-    
+
     /**
      * Fecha en la que se crea el ticket
      * @ORM\Column(name="tick_creation_date", type="datetime", nullable=true)
      */
     protected $creationDate;
-    
+
     /**
      * Prioridad del Ticket
      * @ORM\Column(name="tick_priority", type="integer", nullable=false)
      * @Assert\NotBlank()
      */
     protected $priority;
-    
+
     /**
      * Identificador del cliente que envia el ticket
      * @ORM\Column(name="tick_client_id", type="string", nullable=false)
      */
     protected $clientId;
-    
+
     /**
      * Instancia del cliente que realiza el ticket
      */
     protected $client;
-    
+
     /**
      * Identificador del operador que atiende el ticket del cliente
      * @ORM\Column(name="tick_operator_id", type="string", nullable=true)
      */
     protected $operatorId;
-    
+
     /**
      * Instancia del operador que atiende el ticket
      */
     protected $operator;
-    
-    
+
     function getId() {
         return $this->id;
     }
-    
+
     function getStatus() {
         return $this->status;
     }
@@ -135,7 +133,7 @@ class Ticket implements TicketInterface {
     function getClientId() {
         return $this->clientId;
     }
-    
+
     function getClient() {
         return $this->client;
     }
@@ -143,7 +141,7 @@ class Ticket implements TicketInterface {
     function getOperatorId() {
         return $this->operatorId;
     }
-    
+
     function getOperator() {
         return $this->operator;
     }
@@ -191,7 +189,7 @@ class Ticket implements TicketInterface {
     public function __toString() {
         return $this->getSubject();
     }
-    
+
     /**
      * Set Page initial status before persisting
      * @ORM\PrePersist
@@ -204,13 +202,13 @@ class Ticket implements TicketInterface {
             $this->setCreationDate(Util::getCurrentDate());
         }
     }
-    
+
     /**
      * Permite obtener en modo texto el estado del ticket
      * @param integer|null $status estado del ticket
      */
     public function getTextStatus($status = null) {
-        if(!$status) {
+        if (!$status) {
             $status = $this->getStatus();
         }
         $text = '';
@@ -232,13 +230,13 @@ class Ticket implements TicketInterface {
         }
         return $text;
     }
-    
+
     /**
      * Permite obtener en modo texto la prioridad del ticket
      * @param integer|null $priority priodidad del ticket
      */
     public function getTextPriority($priority = null) {
-        if(!$priority) {
+        if (!$priority) {
             $priority = $this->getPriority();
         }
         $text = '';
@@ -261,4 +259,51 @@ class Ticket implements TicketInterface {
         return $text;
     }
 
+    function getLabelClassByPriority($priority = null) {
+        if (!$priority) {
+            $priority = $this->getPriority();
+        }
+        $text = '';
+        switch ($priority) {
+            case self::PRIORITY_URGENT:
+                $text = 'label-danger';
+                break;
+            case self::PRIORITY_HIGH:
+                $text = 'label-warning';
+                break;
+            case self::PRIORITY_MEDIUM:
+                $text = 'label-success';
+                break;
+            case self::PRIORITY_LOW:
+                $text = 'label-info';
+                break;
+            default:
+                break;
+        }
+        return $text;
+    }
+
+    public function getLabelClassByStatus($status = null) {
+        if (!$status) {
+            $status = $this->getStatus();
+        }
+        $text = '';
+        switch ($status) {
+            case self::STATUS_NEW:
+                $text = 'label-success';
+                break;
+            case self::STATUS_IN_PROCESS:
+                $text = 'label-info';
+                break;
+            case self::STATUS_REPLIED:
+                $text = 'label-warning';
+                break;
+            case self::STATUS_CLOSED:
+                $text = 'label-danger';
+                break;
+            default:
+                break;
+        }
+        return $text;
+    }
 }

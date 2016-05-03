@@ -1,10 +1,10 @@
 {% extends 'HelpDeskBundle:Client:main.html.twig' %}
 
 {% block main_content %}
-<div class="col-md-5 col-md-offset-1" id="signup_wrapper">
+<div class="col-md-4 col-md-offset-4" id="signup_wrapper">
     <header class="form_header">
-        <h3>Welcome Back!</h3>
-        <p>Login to your account.</p>
+        <h3>{{'help_desk.login.welcome'|trans}}</h3>
+        <p>{{'help_desk.login.login_message'|trans}}</p>
     </header>
     <div id="signup_box">
         {% if error %}
@@ -14,15 +14,15 @@
         {% endif %}
         <form action="{{path('help_desk_login_check')}}" role="form" method="post" id="wagon_login_form">
             <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="text" placeholder="email" class="form-control" id="username" name="_username" value="{{ last_username }}">
+                <label for="email">{{'help_desk.login.email'|trans}} *</label>
+                <input type="text" placeholder="{{'help_desk.login.email'|trans|lower}}" class="form-control" id="username" name="_username" value="{{ last_username }}">
             </div>
             <div class="form-group">
-                <label for="first_name">Password *</label>
-                <input class="form-control" type="password" placeholder="password" id="password" name="_password">
+                <label for="first_name">{{'help_desk.login.password'|trans}} *</label>
+                <input class="form-control" type="password" placeholder="{{'help_desk.login.password'|trans|lower}}" id="password" name="_password">
             </div>
             <div class="form-group text-center">
-                <input type="submit" class="btn btn-success btn-lg" value="Login" id="login_submit">
+                <input type="submit" class="btn btn-success btn-lg" value="{{'help_desk.login.login'|trans}}" id="login_submit">
             </div>
         </form>
     </div>

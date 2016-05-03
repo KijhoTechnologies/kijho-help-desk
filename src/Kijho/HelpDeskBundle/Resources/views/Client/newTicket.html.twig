@@ -1,43 +1,52 @@
 {% extends 'HelpDeskBundle:Client:main.html.twig' %}
 
-{% block main_content %}
+{% block title %}{{'help_desk.ticket_creation.create_a_ticket'|trans}}{% endblock %}
 
+{% block main_content %}
     <div class="row">
         <aside class="col-md-3 sidebar">
             {% include 'HelpDeskBundle:Client:menu.html.twig' %}
         </aside>
         <main class="col-md-9 cf create_ticket" id="articles-list">
             <article class="post full-width">
-                <h1 class="create_ticket">Submit a Ticket
-                    <span class="pull-right">Welcome back, !</span>
+                <h1 class="create_ticket">{{'help_desk.ticket_creation.create_a_ticket'|trans}}
+                    <span class="pull-right"></span>
                 </h1>
-
-
-                <form method="post">
-                    <input type="hidden" value="a295341447" name="nonce">
-                    <input type="hidden" value="wagon_create_support" name="form_identifier">
-
+                {{ filters.showMessage('client_error_message', 'danger')}}
+                {{ form_start(form, {'action': '', 'method': 'POST'}) }}
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-6">
-                                <label for="subject">Subject*</label>
-                                <input type="text" name="subject" class="form-control" id="subject" value="">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="related_url">Related URL</label>
-                                <input type="text" name="related_url" class="form-control" value="" id="related_url">
+                            <div class="col-md-12">
+                                {{ form_label(form.subject)}} <em>*</em>
+                                {{ form_widget(form.subject, {'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form.subject) }}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="summernote">Message*</label>
-                        <textarea name="message" id="summernote" class="form-control"></textarea>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_label(form.category)}} <em>*</em>
+                                {{ form_widget(form.category, {'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form.category) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.priority)}} <em>*</em>
+                                {{ form_widget(form.priority, {'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form.priority) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.body)}} <em>*</em>
+                        {{ form_widget(form.body, {'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(form.body) }}
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" class="btn btn-success btn-color-white" value="Submit">
+                        {{ form_widget(form.submit, {'attr':{'class':'btn btn-success btn-color-white'}}) }}
                     </div>
-                </form>
+                {{ form_end(form) }}
 
             </article>
         </main>

@@ -6,8 +6,15 @@ help_desk:
         all: "All"
         open: "Open"
         closed: "Closed"
+        send: "Send"
+        select: "Select.."
+        ticket: "Ticket"
+        view: "View"
+        close: "Close"
     
     tickets:
+        number_date: "Number & Date"
+        tickets: "Support Tickets"
         my_tickets: "My Support Tickets"
         open_tickets: "Open Tickets"
         closed_tickets: "Closed Tickets"
@@ -17,6 +24,7 @@ help_desk:
         priority: "Priority"
         operator: "Operator"
         empty_list: "No tickets found"
+        message: "Message"
         
         status_new: "New"
         status_in_process: "In Process"
@@ -28,6 +36,16 @@ help_desk:
         priority_medium: "Medium"
         priority_low: "Low"
         
+        succesfully_send: "Message succesfully send"
+        error_while_send: "Error sending message. Try again"
+        
     ticket_creation:
         new_ticket: "New Support Ticket"
         create_a_ticket: "Create a Support Ticket"
+        
+    login:
+        welcome: "Welcome Back !"
+        login_message: "Login to your account"
+        email: "Email"
+        password: "Password"
+        login: "Login"

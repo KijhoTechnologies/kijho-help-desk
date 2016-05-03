@@ -7,4 +7,22 @@ and open the template in the editor.
     Created on : May 2, 2016, 10:18:27 AM
     Author     : cesargiraldonaranjo
 */
+.alert-dismissable .close, .alert-dismissible .close {
+  right: 0px !important;
+}
 
+.ticket-description {
+    font-size: 13px;
+    margin-left: 0px !important;
+    margin-bottom: 8px !important;
+}
+
+.ticket-description small {
+    font-style: italic;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.ticket-options a {
+    font-size: 14px !important;
+}

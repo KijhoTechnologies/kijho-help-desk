@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Kijho\HelpDeskBundle\HelpDeskBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(), //bundle para los fixtures
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

@@ -2,3 +2,11 @@ services:
     ticket_provider:
         class: Kijho\HelpDeskBundle\Services\TicketProvider
         arguments: [@service_container, @doctrine.orm.entity_manager]
+        
+    #servicio para pasarle el container a los formualrios (traduccion)
+    help_desk.client.form.type.ticket:
+        class: Kijho\HelpDeskBundle\Form\Client\TicketType
+        arguments:
+            - "@service_container"
+        tags:
+            - { name: form.type }

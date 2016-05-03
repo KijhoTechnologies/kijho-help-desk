@@ -38,7 +38,7 @@ class SecurityController extends Controller {
         if ($this->getUser()->getIsTicketOperator()) {
             return $this->redirect($this->generateUrl('help_desk_operator_tickets'));
         } else {
-            return $this->redirect($this->generateUrl('help_desk_client_my_tickets'));
+            return $this->redirect($this->generateUrl('help_desk_client_my_tickets', array('status'=>'all')));
         }
     }
 

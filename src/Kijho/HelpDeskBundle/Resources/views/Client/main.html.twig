@@ -15,6 +15,7 @@
         
         <link href="{{ asset('bundles/helpdesk/css/style-client.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ asset('bundles/helpdesk/css/themewagon.com.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ asset('bundles/helpdesk/css/reply.css') }}" type="text/css" rel="stylesheet"/>
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head><!--/head-->
@@ -61,6 +62,9 @@
                     {% block scripts %}
                     {% endblock %}
                 });
+                
+                {% block functions_javascript %}
+                {% endblock %}
             </script>
            
         {% endblock %}

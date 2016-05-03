@@ -25,6 +25,8 @@ help_desk:
         operator: "Operator"
         empty_list: "No tickets found"
         message: "Message"
+        last_update: "Last Update"
+        creation_date: "Creation Date"
         
         status_new: "New"
         status_in_process: "In Process"
@@ -38,6 +40,7 @@ help_desk:
         
         succesfully_send: "Message succesfully send"
         error_while_send: "Error sending message. Try again"
+        not_found_message: "Ticket not found"
         
     ticket_creation:
         new_ticket: "New Support Ticket"
@@ -49,3 +52,11 @@ help_desk:
         email: "Email"
         password: "Password"
         login: "Login"
+        
+    ticket_comment:
+        leave_reply: "Leave a Reply"
+        leave_comment: "Leave a Comment"
+        says: "says"
+        type_message: "Type your message"
+        reply: "Reply"
+        close_ticket: "Close Ticket"

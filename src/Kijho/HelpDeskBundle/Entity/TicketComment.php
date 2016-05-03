@@ -74,10 +74,20 @@ class TicketComment implements TicketCommentInterface {
     protected $clientId;
     
     /**
+     * Instancia del cliente que realiza el ticket
+     */
+    protected $client;
+    
+    /**
      * Identificador del operador que atiende el ticket del cliente
      * @ORM\Column(name="tcom_operator_id", type="string", nullable=true)
      */
     protected $operatorId;
+    
+    /**
+     * Instancia del operador que atiende el ticket
+     */
+    protected $operator;
     
     
     function getId() {
@@ -146,6 +156,22 @@ class TicketComment implements TicketCommentInterface {
 
     function setOperatorId($operatorId) {
         $this->operatorId = $operatorId;
+    }
+    
+    function getClient() {
+        return $this->client;
+    }
+
+    function getOperator() {
+        return $this->operator;
+    }
+
+    function setClient($client) {
+        $this->client = $client;
+    }
+
+    function setOperator($operator) {
+        $this->operator = $operator;
     }
 
     public function __toString() {

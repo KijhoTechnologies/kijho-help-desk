@@ -25,16 +25,19 @@
                     <table class="table table-striped">
                         {% for ticket in tickets %}
                             <tr>
-                                <td width="180px">
+                                <td width="240px">
                                     <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
                                     <br>
                                     <p class="ticket-description">{{ticket.creationDate|date('d/m/Y h:i a')}}</p>
                                     <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 
                                         <label class="label {{ticket.getLabelClassByPriority()}}">{{ticket.textPriority()|trans}}</label>
                                     </p>
+                                    {% if ticket.lastUpdate is not empty %}
+                                        <p class="ticket-description"><small>{{'help_desk.tickets.last_update'|trans}} : </small> {{ticket.lastUpdate|date('d/m/Y h:i a')}}</p>
+                                    {% endif %}
                                 </td>
                                 <td>
-                                    {{ticket.subject}}
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.subject'|trans}} : </small> {{ticket.subject}}</p>
                                     <p class="ticket-description"><small>{{'help_desk.tickets.category'|trans}} : </small> {{ticket.category.name}}</p>
                                     <p class="ticket-description"><small>{{'help_desk.tickets.status'|trans}} : </small> 
                                         <label class="label {{ticket.getLabelClassByStatus()}}">{{ticket.textStatus()|trans}}</label>
@@ -45,8 +48,11 @@
                                     
                                 </td>
                                 <td class="ticket-options" width="110px">
-                                    <a class="btn btn-sm"><i class="fa fa-eye"></i> {{'help_desk.global.view'|trans}}</a><br>
-                                    <a class="btn btn-sm"><i class="fa fa-times"></i> {{'help_desk.global.close'|trans}}</a><br>
+                                    <a class="btn btn-sm" href="{{path('help_desk_client_tickets_view',{'id':ticket.id})}}"><i class="fa fa-eye"></i> {{'help_desk.global.view'|trans}}</a><br>
+                                    
+                                    {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
+                                        <a class="btn btn-sm"><i class="fa fa-times"></i> {{'help_desk.global.close'|trans}}</a><br>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

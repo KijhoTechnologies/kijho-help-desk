@@ -101,6 +101,12 @@ class Ticket implements TicketInterface {
      * Instancia del operador que atiende el ticket
      */
     protected $operator;
+    
+    /**
+     * Fecha de la ultima modificacion o actividad sobre el ticket
+     * @ORM\Column(name="tick_last_update", type="datetime", nullable=true)
+     */
+    protected $lastUpdate;
 
     function getId() {
         return $this->id;
@@ -184,6 +190,14 @@ class Ticket implements TicketInterface {
 
     function setOperator($operator) {
         $this->operator = $operator;
+    }
+    
+    function getLastUpdate() {
+        return $this->lastUpdate;
+    }
+
+    function setLastUpdate($lastUpdate) {
+        $this->lastUpdate = $lastUpdate;
     }
 
     public function __toString() {

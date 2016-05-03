@@ -5,7 +5,9 @@ namespace Kijho\HelpDeskBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Kijho\HelpDeskBundle\Entity as Entity;
 use Kijho\HelpDeskBundle\Form\Client\TicketType;
+use Kijho\HelpDeskBundle\Form\Client\TicketCommentType;
 use Symfony\Component\HttpFoundation\Request;
+use Kijho\HelpDeskBundle\Util\Util;
 
 class ClientController extends Controller {
 
@@ -55,7 +57,6 @@ class ClientController extends Controller {
         return $this->render('HelpDeskBundle:Client:myTickets.html.twig', array(
                     'tickets' => $tickets,
                     'status' => $status,
-                    'menu' => 'menu_tickets'
         ));
     }
 
@@ -92,8 +93,65 @@ class ClientController extends Controller {
 
         return $this->render('HelpDeskBundle:Client:newTicket.html.twig', array(
                     'form' => $form->createView(),
-                    'menu' => 'menu_new_tickets'
         ));
+    }
+
+    /**
+     * Permite visaulizar los detalles de un ticket
+     * @param Request $request
+     * @param type $id
+     * @return type
+     */
+    public function viewTicketAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $ticket = $em->getRepository('HelpDeskBundle:Ticket')->find($id);
+
+        if ($ticket && $ticket->getClientId() == $this->getUser()->getId()) {
+            
+            //creamos el formulario para la creacion de comentarios del cliente
+            $ticketComment = new Entity\TicketComment();
+            $formComment = $this->createForm(TicketCommentType::class, $ticketComment);
+            $formComment->handleRequest($request);
+            if ($formComment->isSubmitted() && $formComment->isValid()) {
+                //verificamos si el usuario desea cerrar el ticket
+                $parameters = $request->request->get('helpdeskbundle_client_ticket_comment_type');
+                if (isset($parameters['closeTicket'])) {
+                    $ticket->setStatus(Entity\Ticket::STATUS_CLOSED);
+                }
+                
+                //marcamos la ultima actividad sobre el ticket
+                $ticket->setLastUpdate(Util::getCurrentDate());
+                $em->persist($ticket);
+                
+                $ticketComment->setClientId($this->getUser()->getId());
+                $ticketComment->setType(Entity\TicketComment::COMMENT_BY_CLIENT);
+                $ticketComment->setTicket($ticket);
+                $em->persist($ticketComment);
+                $em->flush();
+                
+                $this->get('session')->getFlashBag()->add('client_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
+                return $this->redirectToRoute('help_desk_client_tickets_view', array('id' => $ticket->getId()));
+            }
+            
+            //buscamos los comentarios del ticket
+            $search = array('ticket' => $ticket->getId());
+            $order = array('creationDate' => 'ASC');
+            $comments = $em->getRepository('HelpDeskBundle:TicketComment')->findBy($search, $order);
+            
+            foreach ($comments as $comment) {
+                $comment->setOperator($this->container->get('ticket_provider')->getTicketOperator($comment->getOperatorId()));
+                $comment->setClient($this->container->get('ticket_provider')->getTicketClient($comment->getClientId()));
+            }
+            
+            return $this->render('HelpDeskBundle:Client:viewTicket.html.twig', array(
+                'ticket' => $ticket,
+                'comments' => $comments,
+                'form_comment' => $formComment->createView(),
+            ));
+        } else {
+            $this->get('session')->getFlashBag()->add('client_error_message', $this->get('translator')->trans('help_desk.tickets.not_found_message'));
+            return $this->redirectToRoute('help_desk_client_my_tickets', array('status' => self::STATUS_ALL));
+        }
     }
 
 }

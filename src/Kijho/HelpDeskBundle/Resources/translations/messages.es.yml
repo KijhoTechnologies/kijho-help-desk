@@ -25,6 +25,8 @@ help_desk:
         operator: "Operador"
         empty_list: "No se encontraron tickets"
         message: "Mensaje"
+        last_update: "Última Modificación"
+        creation_date: "Fecha de Creación"
         
         status_new: "Nuevo"
         status_in_process: "En Proceso"
@@ -38,6 +40,7 @@ help_desk:
         
         succesfully_send: "Mensaje enviado exitosamente"
         error_while_send: "Error enviando el mensaje. Intente de nuevo"
+        not_found_message: "Ticket no encontrado"
         
     ticket_creation:
         new_ticket: "Nuevo Ticket de Soporte"
@@ -49,3 +52,11 @@ help_desk:
         email: "Correo"
         password: "Contraseña"
         login: "Ingresar"
+        
+    ticket_comment:
+        leave_reply: "Deja una Respuesta"
+        leave_comment: "Deja un Comentario"
+        says: "dice"
+        type_message: "Escribe tu mensaje"
+        reply: "Responder"
+        close_ticket: "Cerrar Ticket"

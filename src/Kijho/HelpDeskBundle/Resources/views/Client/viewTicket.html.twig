@@ -1,0 +1,148 @@
+{% extends 'HelpDeskBundle:Client:main.html.twig' %}
+
+{% block title %}{{'help_desk.ticket_creation.create_a_ticket'|trans}}{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <aside class="col-md-3 sidebar">
+            {% include 'HelpDeskBundle:Client:menu.html.twig' %}
+        </aside>
+        <main class="col-md-9 cf create_ticket" id="articles-list">
+            <article class="post full-width">
+                <h1 class="create_ticket">{{'help_desk.global.ticket'|trans}} # {{ticket.id}} ({{ticket.textStatus()|trans}})
+                    <span class="pull-right"></span>
+                </h1>
+                {{ filters.showMessage('client_success_message', 'success')}}
+                {{ filters.showMessage('client_error_message', 'danger')}}
+                <table class="table table-striped">
+                    <tr>
+                        <td width="350px">
+                            <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
+                            <br>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.creation_date'|trans}} : </small>{{ticket.creationDate|date('d/m/Y h:i a')}}</p>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 
+                                <label class="label {{ticket.getLabelClassByPriority()}}">{{ticket.textPriority()|trans}}</label>
+                            </p>
+                            {% if ticket.lastUpdate is not empty %}
+                                <p class="ticket-description"><small>{{'help_desk.tickets.last_update'|trans}} : </small> {{ticket.lastUpdate|date('d/m/Y h:i a')}}</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.subject'|trans}} : </small> {{ticket.subject}}</p>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.category'|trans}} : </small> {{ticket.category.name}}</p>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.status'|trans}} : </small> 
+                                <label class="label {{ticket.getLabelClassByStatus()}}">{{ticket.textStatus()|trans}}</label>
+                            </p>
+                            {% if ticket.operatorId is not empty %}
+                                <p class="ticket-description"><small>{{'help_desk.tickets.operator'|trans}} : </small> {{ticket.operator.name|default('Not Assigned')}}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border: 1px solid #d5e4df;">
+                            <p class="ticket-description"><small>{{'help_desk.tickets.subject'|trans}} : </small> {{ticket.subject}}</p>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.message'|trans}} : </small></p>
+                            {{ticket.body|raw}}
+                        </td>
+                    </tr>
+                </table>
+                            
+                <div class="row">
+                    <div id="comment_list">
+                        {% if comments|length == 0 %}
+                            <div class="comments-heading"><span>{{'help_desk.ticket_comment.leave_comment'|trans}}</span></div>
+                        {% else %}
+                            <div class="comments-heading"><span>{{'help_desk.ticket_comment.leave_reply'|trans}}</span></div>
+                        {% endif %}
+                        <ol class="commentlist">
+                            {% for comment in comments %}
+                                {% set commentByClient = false %}
+                                {% if comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_CLIENT') %}
+                                    <ul class="children">
+                                    {% set commentByClient = true %}
+                                {% endif %}
+                                    
+                                <li id="comment-{{comment.id}}" class="comment even thread-even depth-1 parent">
+                                    <div class="comment-body {% if commentByClient == true %}client-bg-color{% endif %}" id="div-comment-{{comment.id}}">
+                                        <div class="comment-author vcard">
+                                            {% if commentByClient == true %}
+                                                <cite class="fn">{{comment.client}}</cite> 
+                                            {% else %}
+                                                <cite class="fn">{{comment.operator}}</cite>     
+                                            {% endif %}
+                                            <span class="says">{{'help_desk.ticket_comment.says'|trans}}:</span>		
+                                        </div>
+
+                                        <div class="comment-meta commentmetadata">
+                                            <a href="#comment-{{comment.id}}">
+                                                {{comment.creationDate|date('M d, Y - h:i a')}}
+                                            </a>
+                                        </div>
+
+                                        <p>{{comment.comment|raw}}</p>
+
+                                        {% if loop.index == comments|length and commentByClient == false %}
+                                            <div class="reply">
+                                                <a aria-label="Reply to Chris" href="javascript:void(0);" class="comment-reply-link" rel="nofollow">{{'help_desk.ticket_comment.reply'|trans}}</a>		
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                                
+                                {% if commentByClient == true %}
+                                    </ul>
+                                {% endif %}
+                            {% endfor %}
+                            <!-- #comment-## -->
+                            {#<li id="comment-226046" class="comment even thread-odd thread-alt depth-1">
+                                <div class="comment-body" id="div-comment-226046">
+                                    <div class="comment-author vcard">
+                                        <cite class="fn">yedda</cite> <span class="says">says:</span>		</div>
+
+                                    <div class="comment-meta commentmetadata">
+                                        <a href="http://www.formget.com/bootstrap-comment-box/#comment-226046">
+                                            September 29, 2015 at 8:08 am</a>		</div>
+
+                                    <p>this is nice. it helps us.</p>
+
+                                    <div class="reply">
+                                        <a aria-label="Reply to yedda" onclick="return addComment.moveForm( & quot; div - comment - 226046 & quot; , & quot; 226046 & quot; , & quot; respond & quot; , & quot; 25680 & quot; )" href="http://www.formget.com/bootstrap-comment-box/?replytocom=226046#respond" class="comment-reply-link" rel="nofollow">Reply</a>		</div>
+                                </div>
+                            </li>#}
+                            <!-- #comment-## -->
+                            {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
+                            <div class="row reply-container">
+                                {{ form_start(form_comment, {'action': '', 'method': 'POST'}) }}
+                                    <div class="form-group">
+                                        {{ form_label(form_comment.comment)}} <em>*</em>
+                                        {{ form_widget(form_comment.comment, {'attr':{'class':'form-control'}}) }}
+                                        {{ form_errors(form_comment.comment) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(form_comment.closeTicket, ' ', {'label_attr':{'class':'hidden'}})}}
+                                        <div class="checkbox" style="width: 50%; float: left;">
+                                            <label>
+                                                {{ form_widget(form_comment.closeTicket, {'attr':{'class':''}}) }} {{'help_desk.ticket_comment.close_ticket'|trans}}
+                                            </label>
+                                        </div>
+                                        {{ form_errors(form_comment.closeTicket) }}
+                                        {{ form_widget(form_comment.submit, {'attr':{'class':'btn btn-success btn-color-white pull-right'}}) }}
+                                    </div>
+                                {{ form_end(form_comment) }}
+                            </div>
+                            {% endif %}
+                        </ol>
+                    </div>
+                </div>
+                
+            </article>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    
+    $(".comment-reply-link").click(function() {
+        $("#helpdeskbundle_client_ticket_comment_type_comment").focus();
+    });
+{% endblock %}

@@ -5,3 +5,7 @@ help_desk_client_my_tickets:
 help_desk_client_new_ticket:
     path:     /newTicket
     defaults: { _controller: HelpDeskBundle:Client:newSupportTicket }
+    
+help_desk_client_tickets_view:
+    path:     /tickets/{id}/view
+    defaults: { _controller: HelpDeskBundle:Client:viewTicket }

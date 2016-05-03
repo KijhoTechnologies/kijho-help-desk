@@ -1,6 +1,6 @@
 {% extends 'HelpDeskBundle:Client:main.html.twig' %}
 
-{% block title %}{{'help_desk.ticket_creation.create_a_ticket'|trans}}{% endblock %}
+{% block title %}{{'help_desk.global.ticket'|trans}} # {{ticket.id}} ({{ticket.textStatus()|trans}}){% endblock %}
 
 {% block main_content %}
     <div class="row">
@@ -80,7 +80,11 @@
                                         </div>
 
                                         <p>{{comment.comment|raw}}</p>
-
+                                        
+                                        {% if comment.isReaded %}
+                                            <span class="pull-right readed-msg">{{'help_desk.ticket_comment.readed'|trans}} - {{comment.readedDate|date('M d, Y - h:i a')}}</span>
+                                        {% endif %}
+                                        
                                         {% if loop.index == comments|length and commentByClient == false %}
                                             <div class="reply">
                                                 <a aria-label="Reply to Chris" href="javascript:void(0);" class="comment-reply-link" rel="nofollow">{{'help_desk.ticket_comment.reply'|trans}}</a>		
@@ -93,23 +97,7 @@
                                     </ul>
                                 {% endif %}
                             {% endfor %}
-                            <!-- #comment-## -->
-                            {#<li id="comment-226046" class="comment even thread-odd thread-alt depth-1">
-                                <div class="comment-body" id="div-comment-226046">
-                                    <div class="comment-author vcard">
-                                        <cite class="fn">yedda</cite> <span class="says">says:</span>		</div>
-
-                                    <div class="comment-meta commentmetadata">
-                                        <a href="http://www.formget.com/bootstrap-comment-box/#comment-226046">
-                                            September 29, 2015 at 8:08 am</a>		</div>
-
-                                    <p>this is nice. it helps us.</p>
-
-                                    <div class="reply">
-                                        <a aria-label="Reply to yedda" onclick="return addComment.moveForm( & quot; div - comment - 226046 & quot; , & quot; 226046 & quot; , & quot; respond & quot; , & quot; 25680 & quot; )" href="http://www.formget.com/bootstrap-comment-box/?replytocom=226046#respond" class="comment-reply-link" rel="nofollow">Reply</a>		</div>
-                                </div>
-                            </li>#}
-                            <!-- #comment-## -->
+                            
                             {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
                             <div class="row reply-container">
                                 {{ form_start(form_comment, {'action': '', 'method': 'POST'}) }}

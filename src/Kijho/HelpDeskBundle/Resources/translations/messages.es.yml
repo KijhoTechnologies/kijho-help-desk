@@ -60,3 +60,4 @@ help_desk:
         type_message: "Escribe tu mensaje"
         reply: "Responder"
         close_ticket: "Cerrar Ticket"
+        readed: "Leído"

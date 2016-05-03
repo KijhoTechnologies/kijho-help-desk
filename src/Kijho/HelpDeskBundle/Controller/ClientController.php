@@ -138,10 +138,18 @@ class ClientController extends Controller {
             $order = array('creationDate' => 'ASC');
             $comments = $em->getRepository('HelpDeskBundle:TicketComment')->findBy($search, $order);
             
+            //consultamos clientes y operadores y ponemos leidos los mensajes
             foreach ($comments as $comment) {
                 $comment->setOperator($this->container->get('ticket_provider')->getTicketOperator($comment->getOperatorId()));
                 $comment->setClient($this->container->get('ticket_provider')->getTicketClient($comment->getClientId()));
+                
+                if ($comment->getType() == Entity\TicketComment::COMMENT_BY_ADMIN && !$comment->getIsReaded()) {
+                    $comment->setIsReaded(true);
+                    $comment->setReadedDate(Util::getCurrentDate());
+                    $em->persist($comment);
+                }
             }
+            $em->flush();
             
             return $this->render('HelpDeskBundle:Client:viewTicket.html.twig', array(
                 'ticket' => $ticket,

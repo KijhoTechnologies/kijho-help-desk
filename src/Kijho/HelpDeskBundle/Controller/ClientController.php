@@ -85,7 +85,7 @@ class ClientController extends Controller {
                 $em->flush();
 
                 $this->get('session')->getFlashBag()->add('client_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
-                return $this->redirectToRoute('help_desk_client_my_tickets', array('status' => self::STATUS_ALL));
+                return $this->redirectToRoute('help_desk_client_tickets', array('status' => self::STATUS_ALL));
             } catch (\Exception $exc) {
                 $this->get('session')->getFlashBag()->add('client_error_message', $this->get('translator')->trans('help_desk.tickets.error_while_send'));
             }
@@ -158,7 +158,7 @@ class ClientController extends Controller {
             ));
         } else {
             $this->get('session')->getFlashBag()->add('client_error_message', $this->get('translator')->trans('help_desk.tickets.not_found_message'));
-            return $this->redirectToRoute('help_desk_client_my_tickets', array('status' => self::STATUS_ALL));
+            return $this->redirectToRoute('help_desk_client_tickets', array('status' => self::STATUS_ALL));
         }
     }
 

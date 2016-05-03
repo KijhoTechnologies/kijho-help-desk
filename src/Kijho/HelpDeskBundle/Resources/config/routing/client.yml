@@ -1,8 +1,8 @@
-help_desk_client_my_tickets:
+help_desk_client_tickets:
     path:     /tickets/{status}
     defaults: { _controller: HelpDeskBundle:Client:myTickets }
     
-help_desk_client_new_ticket:
+help_desk_client_tickets_new:
     path:     /newTicket
     defaults: { _controller: HelpDeskBundle:Client:newSupportTicket }
     

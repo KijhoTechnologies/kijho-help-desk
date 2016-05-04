@@ -83,3 +83,13 @@ help_desk:
         not_found_message: Category not found
         succesfully_created: Category succesfully created
         succesfully_updated: Category succesfully updated
+        
+    ticket_notification:
+        new_ticket_client: "New Ticket from Client"
+        new_ticket_message: "We have a new ticket from "
+        clic_message: "Click here to view complete message"
+        
+    email:
+        hi_there: "Hi there"
+        
+     

@@ -3,6 +3,13 @@ services:
         class: Kijho\HelpDeskBundle\Services\TicketProvider
         arguments: [@service_container, @doctrine.orm.entity_manager]
         
+    email_manager:
+        class: Kijho\HelpDeskBundle\Services\EmailManager
+        arguments: 
+            requestStack:   "@request_stack"
+            container:      "@service_container"
+            entityManager:  "@doctrine.orm.entity_manager"
+        
     #servicio para pasarle el container al formulario de tickets
     help_desk.client.form.type.ticket:
         class: Kijho\HelpDeskBundle\Form\Client\TicketType

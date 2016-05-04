@@ -19,8 +19,9 @@ class OperatorController extends Controller {
     
     public function ticketsAction($status = self::STATUS_ALL) {
 
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createNotFoundException('Access Denied. You must be logged in');
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+                || !$this->getUser()->getIsTicketOperator()) {
+            throw $this->createNotFoundException('Access Denied. You must be logged in as an operator');
         }
         
         $em = $this->getDoctrine()->getManager();
@@ -61,8 +62,9 @@ class OperatorController extends Controller {
      */
     public function viewTicketAction(Request $request, $id) {
         
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createNotFoundException('Access Denied. You must be logged in');
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+                || !$this->getUser()->getIsTicketOperator()) {
+            throw $this->createNotFoundException('Access Denied. You must be logged in as an operator');
         }
         
         $em = $this->getDoctrine()->getManager();

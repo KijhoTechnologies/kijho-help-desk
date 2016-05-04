@@ -88,6 +88,9 @@ class ClientController extends Controller {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($ticket);
                 $em->flush();
+                
+                //enviamos el correo electronico notificando el ticket
+                $this->container->get('email_manager')->sendNotificationNewTicket($ticket);
 
                 $this->get('session')->getFlashBag()->add('client_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
                 return $this->redirectToRoute('help_desk_client_tickets', array('status' => self::STATUS_ALL));

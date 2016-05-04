@@ -83,3 +83,11 @@ help_desk:
         not_found_message: Categoría no encontrada
         succesfully_created: Categoría creada exitosamente
         succesfully_updated: Categoría modificada exitosamente
+        
+    ticket_notification:
+        new_ticket_client: "Nuevo Ticket de un Cliente"
+        new_ticket_message: "Tenemos un nuevo Ticket de "
+        clic_message: "Clic aquí para ver el mensaje completo"
+        
+    email:
+        hi_there: "Cordial Saludo."

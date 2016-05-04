@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Kijho\HelpDeskBundle\Entity\Ticket;
+use Doctrine\ORM\EntityRepository;
 
 class TicketType extends AbstractType {
 
@@ -54,6 +55,11 @@ class TicketType extends AbstractType {
                 ))
                 ->add('category', EntityType::class, array(
                             'class' => 'HelpDeskBundle:TicketCategory',
+                            'query_builder' => function (EntityRepository $er) {
+                                return $er->createQueryBuilder('tc')
+                                        ->where('tc.isEnabled = TRUE')
+                                        ->orderBy('tc.name', 'ASC');
+                            },
                             'required' => true,
                             'label' => $this->translator->trans('help_desk.tickets.category'),
                             'placeholder' => $this->translator->trans('help_desk.global.select'),

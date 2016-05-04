@@ -53,7 +53,7 @@
                         {% if comments|length == 0 %}
                             <div class="comments-heading"><span>{{'help_desk.ticket_comment.leave_comment'|trans}}</span></div>
                         {% else %}
-                            <div class="comments-heading"><span>{{'help_desk.ticket_comment.leave_reply'|trans}}</span></div>
+                            <div class="comments-heading"><span>{{'help_desk.ticket_comment.comments'|trans}} ({{comments|length}})</span></div>
                         {% endif %}
                         <ol class="commentlist">
                             {% for comment in comments %}
@@ -107,6 +107,9 @@
                                         {{ form_label(form_comment.comment)}} <em>*</em>
                                         {{ form_widget(form_comment.comment, {'attr':{'class':'form-control'}}) }}
                                         {{ form_errors(form_comment.comment) }}
+                                        {% if comments|length == 0 %}
+                                            <p class="ticket-description">{{'help_desk.ticket_comment.advertisement_first_message'|trans}} "{{'help_desk.tickets.status_replied'|trans}}"</p>
+                                        {% endif %}
                                     </div>
                                     <div class="form-group">
                                         {{ form_widget(form_comment.submit, {'attr':{'class':'btn btn-success btn-color-white pull-right'}}) }}

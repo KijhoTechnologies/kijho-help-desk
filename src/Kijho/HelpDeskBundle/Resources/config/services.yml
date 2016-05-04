@@ -26,3 +26,11 @@ services:
             - "@service_container"
         tags:
             - { name: form.type }
+    
+    #servicio para pasarle el container al formulario de comentarios en tickets para el operador
+    help_desk.operator.form.type.ticket_category:
+        class: Kijho\HelpDeskBundle\Form\Operator\TicketCategoryType
+        arguments:
+            - "@service_container"
+        tags:
+            - { name: form.type }

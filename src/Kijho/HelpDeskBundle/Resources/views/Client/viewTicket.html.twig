@@ -52,7 +52,7 @@
                         {% if comments|length == 0 %}
                             <div class="comments-heading"><span>{{'help_desk.ticket_comment.leave_comment'|trans}}</span></div>
                         {% else %}
-                            <div class="comments-heading"><span>{{'help_desk.ticket_comment.leave_reply'|trans}}</span></div>
+                            <div class="comments-heading"><span>{{'help_desk.ticket_comment.comments'|trans}} ({{comments|length}})</span></div>
                         {% endif %}
                         <ol class="commentlist">
                             {% for comment in comments %}

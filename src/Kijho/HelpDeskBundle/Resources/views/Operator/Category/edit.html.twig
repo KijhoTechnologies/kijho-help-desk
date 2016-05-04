@@ -1,0 +1,67 @@
+{% extends 'HelpDeskBundle:Default:main.html.twig' %}
+
+{% block title %}{{'help_desk.ticket_category.edit'|trans}}{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <aside class="col-md-3 sidebar">
+            {% include 'HelpDeskBundle:Operator:menu.html.twig' %}
+        </aside>
+        <main class="col-md-9 cf create_ticket" id="articles-list">
+            <article class="post full-width">
+                <h1 class="create_ticket">{{'help_desk.ticket_category.edit'|trans}}
+                    <span class="pull-right"></span>
+                </h1>
+                {{ filters.showMessage('operator_error_message', 'danger')}}
+                {{ form_start(form_category, {'action': '', 'method': 'POST'}) }}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_label(form_category.name)}} <em>*</em>
+                                {{ form_widget(form_category.name, {'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form_category.name) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_label(form_category.email)}} <em>*</em>
+                                {{ form_widget(form_category.email, {'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form_category.email) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">        
+                            <div class="col-md-12">
+                                {{ form_label(form_category.isEnabled, ' ', {'label_attr':{'class':'hidden'}})}}
+                                <div class="checkbox">
+                                    <label>
+                                        {{ form_widget(form_category.isEnabled, {'attr':{'class':''}}) }} {{'help_desk.ticket_category.enabled'|trans}}
+                                    </label>
+                                </div>
+                                {{ form_errors(form_category.isEnabled) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_label(form_category.description)}}
+                                {{ form_widget(form_category.description, {'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form_category.description) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form_category.submit, {'attr':{'class':'btn btn-success btn-color-white'}}) }}
+                    </div>
+                {{ form_end(form_category) }}
+            </article>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

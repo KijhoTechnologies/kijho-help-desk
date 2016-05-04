@@ -11,6 +11,9 @@ help_desk:
         ticket: "Ticket"
         view: "View"
         close: "Close"
+        edit: "Edit"
+        save_changes: "Save Changes"
+        create: "Create"
     
     tickets:
         number_date: "Number & Date"
@@ -57,9 +60,26 @@ help_desk:
         
     ticket_comment:
         leave_reply: "Leave a Reply"
+        comments: "Comentarios"
         leave_comment: "Leave a Comment"
         says: "says"
         type_message: "Type your message"
         reply: "Reply"
         close_ticket: "Close Ticket"
         readed: "Readed"
+        advertisement_first_message: "When you send this message Ticket status will be changed to"
+        
+    ticket_category:
+        ticket_categories: "Ticket Categories"
+        edit: "Edit Category"
+        empty_list: "No Ticket Categories"
+        enabled: Enabled
+        disabled: Disabled
+        new: New Category
+        name: Name
+        description: Description
+        email: Email Destination
+        status: Status
+        not_found_message: Category not found
+        succesfully_created: Category succesfully created
+        succesfully_updated: Category succesfully updated

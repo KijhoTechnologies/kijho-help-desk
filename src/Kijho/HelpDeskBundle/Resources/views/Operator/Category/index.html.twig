@@ -1,0 +1,57 @@
+{% extends 'HelpDeskBundle:Default:main.html.twig' %}
+
+{% block title %}{{'help_desk.ticket_category.ticket_categories'|trans}}{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <aside class="col-md-3 sidebar">
+            {% include 'HelpDeskBundle:Operator:menu.html.twig' %}
+        </aside>
+        <main class="col-md-9 ticket-list cf" id="articles-list">
+            <h3 id="public_tickets">{{'help_desk.ticket_category.ticket_categories'|trans}}</h3>
+            <hr>
+            {{ filters.showMessage('operator_success_message', 'success')}}
+            {{ filters.showMessage('operator_error_message', 'danger')}}
+            <div class="home-theme-filter" style="text-align: left; margin-bottom: 10px;">
+                <a href="#" class="pjax">{{'help_desk.ticket_category.ticket_categories'|trans|upper}}</a>
+                <a class="btn btn-success pull-right btn-color-white" href="{{path('help_desk_operator_categories_new')}}">{{'help_desk.ticket_category.new'|trans|upper}}</a>
+            </div>
+            <article class="post full-width">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>{{'help_desk.ticket_category.name'|trans}}</th>
+                            <th>{{'help_desk.ticket_category.description'|trans}}</th>
+                            <th>{{'help_desk.ticket_category.email'|trans}}</th>
+                            <th>{{'help_desk.ticket_category.status'|trans}}</th>
+                            <th width="110px">{{'help_desk.global.options'|trans}}</th>
+                        </tr>
+                        {% for category in categories %}
+                            <tr>
+                                <td>
+                                    {{category.name}}
+                                </td>
+                                <td>
+                                    {{category.description|default('~')}}
+                                </td>
+                                <td>
+                                    {{category.email}}
+                                </td>
+                                <td>
+                                    {{category.textStatus()|trans}}
+                                </td>
+                                <td class="ticket-options" >
+                                    <a class="btn btn-sm" href="{{path('help_desk_operator_categories_edit',{'id':category.id})}}"><i class="fa fa-pencil"></i> {{'help_desk.global.edit'|trans}}</a><br>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">
+                                    {{'help_desk.ticket_category.empty_list'|trans}}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+            </article>
+        </main>
+    </div><!-- row -->
+{% endblock %}

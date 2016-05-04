@@ -11,6 +11,9 @@ help_desk:
         ticket: "Ticket"
         view: "Ver"
         close: "Cerrar"
+        edit: "Editar"
+        save_changes: "Guardar Cambios"
+        create: "Crear"
     
     tickets:
         number_date: "Número y Fecha"
@@ -57,9 +60,26 @@ help_desk:
         
     ticket_comment:
         leave_reply: "Deja una Respuesta"
+        comments: "Comentarios"
         leave_comment: "Deja un Comentario"
         says: "dice"
         type_message: "Escribe tu mensaje"
         reply: "Responder"
         close_ticket: "Cerrar Ticket"
         readed: "Leído"
+        advertisement_first_message: "Cuando envíe este mensaje el estado del ticket cambiará a"
+        
+    ticket_category:
+        ticket_categories: "Categorías de Tickets"
+        edit: "Editar Categoría"
+        empty_list: "No hay categorías de tickets"
+        enabled: Activa
+        disabled: Inactiva
+        new: Nueva Categoría
+        name: Nombre
+        description: Descripción
+        email: Correo para Tickets
+        status: Estado
+        not_found_message: Categoría no encontrada
+        succesfully_created: Categoría creada exitosamente
+        succesfully_updated: Categoría modificada exitosamente

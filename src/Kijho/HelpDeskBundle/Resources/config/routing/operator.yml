@@ -5,3 +5,15 @@ help_desk_operator_tickets:
 help_desk_operator_tickets_view:
     path:     /tickets/{id}/view
     defaults: { _controller: HelpDeskBundle:Operator:viewTicket }
+    
+help_desk_operator_categories:
+    path:     /categories/
+    defaults: { _controller: HelpDeskBundle:Category:index }
+    
+help_desk_operator_categories_new:
+    path:     /categories/new
+    defaults: { _controller: HelpDeskBundle:Category:new }
+
+help_desk_operator_categories_edit:
+    path:     /categories/{id}/edit
+    defaults: { _controller: HelpDeskBundle:Category:edit }

@@ -38,8 +38,7 @@ class TicketCategory implements TicketCategoryInterface {
 
     /**
      * Texto identificador de la categoria para facil acceso a ella
-     * @ORM\Column(name="tcat_slug", type="string", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="tcat_slug", type="string", nullable=true)
      */
     protected $slug;
 
@@ -129,6 +128,22 @@ class TicketCategory implements TicketCategoryInterface {
         if (null === $this->getCreationDate()) {
             $this->setCreationDate(Util::getCurrentDate());
         }
+    }
+    
+    /**
+     * Permite obtener en modo texto el estado de la categoria
+     * @param type $status
+     * @return string
+     */
+    public function getTextStatus($status = null) {
+        if (!$status) {
+            $status = $this->getIsEnabled();
+        }
+        
+        if ($status) {
+            return 'help_desk.ticket_category.enabled';
+        }
+        return 'help_desk.ticket_category.disabled';
     }
 
 }

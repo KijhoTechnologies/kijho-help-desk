@@ -11,7 +11,7 @@ use Kijho\HelpDeskBundle\Util\Util;
  * Ticket Entity
  * @author Cesar Giraldo - <cnaranjo@kijho.com> 29/04/2016
  * @ORM\Table(name="kijho_ticket")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Kijho\HelpDeskBundle\Entity\TicketRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Ticket implements TicketInterface {

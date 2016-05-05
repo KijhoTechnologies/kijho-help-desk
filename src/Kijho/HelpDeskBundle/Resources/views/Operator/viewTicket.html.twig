@@ -110,6 +110,11 @@
                                         {% if comments|length == 0 %}
                                             <p class="ticket-description">{{'help_desk.ticket_comment.advertisement_first_message'|trans}} "{{'help_desk.tickets.status_replied'|trans}}"</p>
                                         {% endif %}
+                                        
+                                        {% if ticket.operatorId is not empty and comments|length > 0 and ticket.operatorId != app.user.id %}
+                                            * {{'help_desk.ticket_comment.advertisement_reassigment_first'|trans}} <strong>{{ticket.operator.name}}</strong>. {{'help_desk.ticket_comment.advertisement_reassigment_second'|trans}}
+                                        {% endif %}
+                                        
                                     </div>
                                     <div class="form-group">
                                         {{ form_widget(form_comment.submit, {'attr':{'class':'btn btn-success btn-color-white pull-right'}}) }}

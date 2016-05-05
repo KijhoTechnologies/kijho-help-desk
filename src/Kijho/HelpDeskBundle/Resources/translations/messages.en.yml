@@ -68,6 +68,8 @@ help_desk:
         close_ticket: "Close Ticket"
         readed: "Readed"
         advertisement_first_message: "When you send this message Ticket status will be changed to"
+        advertisement_reassigment_first: "This ticket is attended by "
+        advertisement_reassigment_second: "If you send a message you will be assigned automatically to this ticket."
         
     ticket_category:
         ticket_categories: "Ticket Categories"

@@ -25,7 +25,7 @@
                         {% for ticket in tickets %}
                             <tr>
                                 <td width="280px">
-                                    <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
+                                    <label><a href="{{path('help_desk_operator_tickets_view',{'id':ticket.id})}}">{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</a></label> 
                                     <p class="ticket-description"><small>{{'help_desk.tickets.client'|trans}} : </small> {{ticket.client.name|title}}</p>
                                     <p class="ticket-description"><small>{{'help_desk.tickets.creation_date'|trans}} : </small> {{ticket.creationDate|date('d/m/Y h:i a')}}</p>
                                     <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 

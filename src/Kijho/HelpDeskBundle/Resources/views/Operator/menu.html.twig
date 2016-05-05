@@ -4,13 +4,13 @@
         <div class="menu-account-menu-container">
             <ul class="menu" id="menu-account-menu">
                 <li class="col-md-12 col-xs-6 menu-item menu-item-type-post_type menu-item-object-page menu-item-2778" id="menu-item-2778">
-                    <a href="{{path('help_desk_operator_tickets',{'status' : 'all'})}}"><i class="fa fa-list"></i> {{'help_desk.tickets.tickets'|trans}}</a>
+                    <a href="{{path('help_desk_operator_tickets',{'status' : 'all'})}}"><i class="fa fa-list"></i> {{'help_desk.tickets.tickets'|trans}}</a> <label class="label label-success">{{ticket_provider.getCountTickets()}}</label>
                 </li>
                 <li class="col-md-12 col-xs-6 menu-item menu-item-type-custom menu-item-object-custom menu-item-2780" id="menu-item-2780">
-                    <a href="{{path('help_desk_operator_tickets',{'status' : 'active'})}}"><i class="fa fa-envelope-o"></i> {{'help_desk.tickets.active_tickets'|trans}}</a>
+                    <a href="{{path('help_desk_operator_tickets',{'status' : 'active'})}}"><i class="fa fa-envelope-o"></i> {{'help_desk.tickets.active_tickets'|trans}}</a> <label class="label label-success">{{ticket_provider.getCountTickets('active')}}</label>
                 </li>
                 <li class="col-md-12 col-xs-6 menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-2781" id="menu-item-2781">
-                    <a href="{{path('help_desk_operator_tickets',{'status' : 'closed'})}}"><i class="fa fa-envelope"></i> {{'help_desk.tickets.closed_tickets'|trans}}</a>
+                    <a href="{{path('help_desk_operator_tickets',{'status' : 'closed'})}}"><i class="fa fa-envelope"></i> {{'help_desk.tickets.closed_tickets'|trans}}</a> <label class="label label-success">{{ticket_provider.getCountTickets('closed')}}</label>
                 </li>
                 <li class="col-md-12 col-xs-6 menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-2782" id="menu-item-2782">
                     <a href="{{path('help_desk_operator_categories')}}"><i class="fa fa-filter"></i> {{'help_desk.ticket_category.ticket_categories'|trans}}</a>

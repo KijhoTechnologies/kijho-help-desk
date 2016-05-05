@@ -88,9 +88,7 @@ class OperatorController extends Controller {
                     $ticket->setStatus(Entity\Ticket::STATUS_REPLIED);
                 }
                 
-                if (empty($ticket->getOperatorId())) {
-                    $ticket->setOperatorId($this->getUser()->getId());
-                }
+                $ticket->setOperatorId($this->getUser()->getId());
                 
                 $em->persist($ticket);
                 

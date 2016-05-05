@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 /*
  * TicketProvider
  */
+
 class TicketProvider {
 
     protected $container;
@@ -29,7 +30,7 @@ class TicketProvider {
         }
         return null;
     }
-    
+
     public function getTicketOperator($operatorId) {
         if (!empty($operatorId)) {
             $operator = $this->em->getRepository($this->operatorStorage)->find($operatorId);
@@ -37,5 +38,13 @@ class TicketProvider {
         }
         return null;
     }
-   
+
+    public function getCountClientTickets($clientId, $status = null) {
+        return $this->em->getRepository('HelpDeskBundle:Ticket')->findCountTickets($clientId, $status);
+    }
+    
+    public function getCountTickets($status = null) {
+        return $this->em->getRepository('HelpDeskBundle:Ticket')->findCountTickets(null, $status);
+    }
+
 }

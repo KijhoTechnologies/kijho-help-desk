@@ -40,7 +40,7 @@ class EmailManager {
     }
 
     /**
-     * Permite enviar a un usuario el correo de invitacion a un proyecto
+     * Permite enviar al administrador la notificacion de un nuevo ticket
      * @author Cesar Giraldo <cesargiraldo1108@gmail.com> May 04, 2016
      * @param Entity\Ticket $ticket
      */
@@ -48,7 +48,7 @@ class EmailManager {
 
         $client = $this->container->get('ticket_provider')->getTicketClient($ticket->getClientId());
 
-        if ($client && !empty($client->getEmail())) {
+        if ($client && !empty($client->getEmail()) && !empty($ticket->getCategory()->getEmail())) {
             $ticket->setClient($client);
 
             $message = \Swift_Message::newInstance()
@@ -62,6 +62,60 @@ class EmailManager {
                     )
             ;
             $this->mailer->send($message);
+        }
+    }
+
+    /**
+     * Permite enviar al cliente u administrador la notificacion de un comentario sobre el ticket
+     * @author Cesar Giraldo <cesargiraldo1108@gmail.com> May 05, 2016
+     * @param Entity\TicketComment $ticketComment
+     */
+    public function sendNotificationNewComment(Entity\TicketComment $ticketComment) {
+
+        $client = $this->container->get('ticket_provider')->getTicketClient($ticketComment->getTicket()->getClientId());
+        $category = $ticketComment->getTicket()->getCategory();
+
+        if ($category && $client && !empty($client->getEmail())) {
+
+            $ticketComment->setClient($client);
+
+
+            if ($ticketComment->getType() == Entity\TicketComment::COMMENT_BY_ADMIN) {
+
+                $operator = $this->container->get('ticket_provider')->getTicketOperator($ticketComment->getOperatorId());
+
+                if ($operator) {
+                    $ticketComment->setOperator($operator);
+
+                    $message = \Swift_Message::newInstance()
+                            ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment'))
+                            ->setFrom($category->getEmail())
+                            ->setTo($client->getEmail())
+                            ->setBody(
+                            $this->container->get('templating')->render(
+                                    'HelpDeskBundle:Email:newTicketComment.html.twig', array('ticket_comment' => $ticketComment)
+                            ), 'text/html'
+                            )
+                    ;
+                    $this->mailer->send($message);
+                }
+            } elseif ($ticketComment->getType() == Entity\TicketComment::COMMENT_BY_CLIENT) {
+                $operator = $this->container->get('ticket_provider')->getTicketOperator($ticketComment->getTicket()->getOperatorId());
+
+                $ticketComment->setOperator($operator);
+
+                $message = \Swift_Message::newInstance()
+                        ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment'))
+                        ->setFrom($client->getEmail())
+                        ->setTo($category->getEmail())
+                        ->setBody(
+                        $this->container->get('templating')->render(
+                                'HelpDeskBundle:Email:newTicketComment.html.twig', array('ticket_comment' => $ticketComment)
+                        ), 'text/html'
+                        )
+                ;
+                $this->mailer->send($message);
+            }
         }
     }
 

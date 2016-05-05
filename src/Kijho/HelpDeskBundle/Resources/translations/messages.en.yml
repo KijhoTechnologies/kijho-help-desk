@@ -88,8 +88,11 @@ help_desk:
         new_ticket_client: "New Ticket from Client"
         new_ticket_message: "We have a new ticket from "
         clic_message: "Click here to view complete message"
+        new_ticket_comment: "New Comment on Ticket"
+        new_comment_message: "You have a new comment from "
         
     email:
+        hi: "Hi"
         hi_there: "Hi there"
         
      

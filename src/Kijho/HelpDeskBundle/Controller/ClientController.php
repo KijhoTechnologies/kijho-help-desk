@@ -145,6 +145,9 @@ class ClientController extends Controller {
                 $em->persist($ticketComment);
                 $em->flush();
                 
+                //notificamos via email el comentario del cliente
+                $this->get('email_manager')->sendNotificationNewComment($ticketComment);
+                
                 $this->get('session')->getFlashBag()->add('client_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
                 return $this->redirectToRoute('help_desk_client_tickets_view', array('id' => $ticket->getId()));
             }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <h1>{{ 'help_desk.ticket_notification.new_ticket_comment'|trans }}</h1>
+                
+                {% if ticket_comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_CLIENT') and ticket_comment.operator is not empty %}
+                    <p>{{ 'help_desk.email.hi'|trans }} {{ticket_comment.operator.name}}</p>
+                {% elseif ticket_comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_ADMIN') %}
+                    <p>{{ 'help_desk.email.hi'|trans }} {{ticket_comment.client.name}}</p>
+                {% endif %}
+                
+                <p>{{ 'help_desk.ticket_notification.new_comment_message'|trans }} 
+                    {% if ticket_comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_CLIENT') %}
+                        {{ticket_comment.client.name}}
+                    {% else %}
+                        {{ticket_comment.operator.name}}
+                    {% endif %}
+                </p>
+                
+                {% if ticket_comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_CLIENT') %}
+                    <a href="{{app.request.getSchemeAndHttpHost()~path('help_desk_operator_tickets_view',{'id':ticket_comment.ticket.id})}}#div-comment-{{ticket_comment.id}}">{{ 'help_desk.ticket_notification.clic_message'|trans }}</a>
+                {% elseif ticket_comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_ADMIN') %}
+                    <a href="{{app.request.getSchemeAndHttpHost()~path('help_desk_client_tickets_view',{'id':ticket_comment.ticket.id})}}#div-comment-{{ticket_comment.id}}">{{ 'help_desk.ticket_notification.clic_message'|trans }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

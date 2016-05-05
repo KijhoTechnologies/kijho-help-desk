@@ -102,7 +102,7 @@
                             
                             {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
                             <div class="row reply-container">
-                                {{ form_start(form_comment, {'action': '', 'method': 'POST'}) }}
+                                {{ form_start(form_comment, {'action': '', 'method': 'POST', 'attr':{'id':'form-new-comment'} }) }}
                                     <div class="form-group">
                                         {{ form_label(form_comment.comment)}} <em>*</em>
                                         {{ form_widget(form_comment.comment, {'attr':{'class':'form-control'}}) }}
@@ -136,4 +136,12 @@
     $(".comment-reply-link").click(function() {
         $("#helpdeskbundle_operator_ticket_comment_type_comment").focus();
     });
+    
+    
+    $("#form-new-comment").submit(function () {
+        $("#helpdeskbundle_operator_ticket_comment_type_submit").attr('disabled', 'disabled');
+        $("#helpdeskbundle_operator_ticket_comment_type_submit").html("{{'help_desk.global.please_wait'|trans}}");
+        
+    });
+    $("#helpdeskbundle_operator_ticket_comment_type_submit").removeAttr('disabled');
 {% endblock %}

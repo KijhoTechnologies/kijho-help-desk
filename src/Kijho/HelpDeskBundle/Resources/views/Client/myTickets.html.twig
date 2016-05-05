@@ -47,7 +47,11 @@
                                     
                                 </td>
                                 <td class="ticket-options" width="110px">
-                                    <a class="btn btn-sm" href="{{path('help_desk_client_tickets_view',{'id':ticket.id})}}"><i class="fa fa-eye"></i> {{'help_desk.global.view'|trans}}</a><br>
+                                    <a class="btn btn-sm" href="{{path('help_desk_client_tickets_view',{'id':ticket.id})}}">
+                                        <i class="fa fa-comment"></i><br>
+                                        <strong>{{ticket.getCountTotalComments()}}</strong> {{'help_desk.ticket_comment.comments'|trans|upper}}<br>
+                                        <strong>{{ticket.getCountClientUnreadComments()}}</strong> {{'help_desk.ticket_comment.unread'|trans|upper}}
+                                    </a><br>
                                     
                                     {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
                                         {#<a class="btn btn-sm"><i class="fa fa-times"></i> {{'help_desk.global.close'|trans}}</a><br>#}

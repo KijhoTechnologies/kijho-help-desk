@@ -48,7 +48,11 @@
                                     
                                 </td>
                                 <td class="ticket-options" width="110px">
-                                    <a class="btn btn-sm" href="{{path('help_desk_operator_tickets_view',{'id':ticket.id})}}"><i class="fa fa-eye"></i> {{'help_desk.global.view'|trans}}</a><br>
+                                    <a class="btn btn-sm" href="{{path('help_desk_operator_tickets_view',{'id':ticket.id})}}">
+                                        <i class="fa fa-comment"></i><br>
+                                        <strong>{{ticket.getCountTotalComments()}}</strong> {{'help_desk.ticket_comment.comments'|trans|upper}}<br>
+                                        <strong>{{ticket.getCountOperatorUnreadComments()}}</strong> {{'help_desk.ticket_comment.unread'|trans|upper}}
+                                    </a><br>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -13,7 +13,7 @@
                     <span class="pull-right"></span>
                 </h1>
                 {{ filters.showMessage('operator_error_message', 'danger')}}
-                {{ form_start(form_category, {'action': '', 'method': 'POST'}) }}
+                {{ form_start(form_category, {'action': '', 'method': 'POST', 'attr':{'id':'form-new-category'} }) }}
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
@@ -64,4 +64,11 @@
 {% endblock %}
 
 {% block scripts %}
+    
+    $("#form-new-category").submit(function () {
+        $("#helpdeskbundle_operator_ticket_category_type_submit").attr('disabled', 'disabled');
+        $("#helpdeskbundle_operator_ticket_category_type_submit").html("{{'help_desk.global.please_wait'|trans}}");
+    });
+    $("#helpdeskbundle_operator_ticket_category_type_submit").removeAttr('disabled');
+    
 {% endblock %}

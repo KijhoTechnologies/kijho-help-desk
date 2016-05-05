@@ -14,6 +14,7 @@ help_desk:
         edit: "Edit"
         save_changes: "Save Changes"
         create: "Create"
+        please_wait: "Please wait.."
     
     tickets:
         number_date: "Number & Date"
@@ -70,6 +71,7 @@ help_desk:
         advertisement_first_message: "When you send this message Ticket status will be changed to"
         advertisement_reassigment_first: "This ticket is attended by "
         advertisement_reassigment_second: "If you send a message you will be assigned automatically to this ticket."
+        unread: "Unread"
         
     ticket_category:
         ticket_categories: "Ticket Categories"

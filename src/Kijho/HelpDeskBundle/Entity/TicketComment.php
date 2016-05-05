@@ -31,7 +31,7 @@ class TicketComment implements TicketCommentInterface {
     
     /**
      * Ticket a la que esta asociado el comentario
-     * @ORM\ManyToOne(targetEntity="Kijho\HelpDeskBundle\Entity\Ticket")
+     * @ORM\ManyToOne(targetEntity="Kijho\HelpDeskBundle\Entity\Ticket", inversedBy="comments")
      * @ORM\JoinColumn(name="tcom_ticket_id", referencedColumnName="tick_id", nullable=false)
      */
     protected $ticket;

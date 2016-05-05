@@ -101,12 +101,18 @@ class Ticket implements TicketInterface {
      * Instancia del operador que atiende el ticket
      */
     protected $operator;
-    
+
     /**
      * Fecha de la ultima modificacion o actividad sobre el ticket
      * @ORM\Column(name="tick_last_update", type="datetime", nullable=true)
      */
     protected $lastUpdate;
+
+    /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     * @ORM\OneToMany(targetEntity="Kijho\HelpDeskBundle\Entity\TicketComment", mappedBy="ticket")
+     */
+    protected $comments;
 
     function getId() {
         return $this->id;
@@ -191,7 +197,7 @@ class Ticket implements TicketInterface {
     function setOperator($operator) {
         $this->operator = $operator;
     }
-    
+
     function getLastUpdate() {
         return $this->lastUpdate;
     }
@@ -202,6 +208,44 @@ class Ticket implements TicketInterface {
 
     public function __toString() {
         return $this->getSubject();
+    }
+
+    function getComments() {
+        return $this->comments;
+    }
+
+    function setComments($comments) {
+        $this->comments = $comments;
+    }
+
+    function getCountTotalComments() {
+        return count($this->comments);
+    }
+
+    function getCountClientUnreadComments() {
+
+        $unread = 0;
+
+        foreach ($this->comments as $comment) {
+            if ($comment->getType() == TicketComment::COMMENT_BY_ADMIN && !$comment->getIsReaded()) {
+                $unread++;
+            }
+        }
+        
+        return $unread;
+    }
+    
+    function getCountOperatorUnreadComments() {
+
+        $unread = 0;
+
+        foreach ($this->comments as $comment) {
+            if ($comment->getType() == TicketComment::COMMENT_BY_CLIENT && !$comment->getIsReaded()) {
+                $unread++;
+            }
+        }
+        
+        return $unread;
     }
 
     /**
@@ -320,4 +364,5 @@ class Ticket implements TicketInterface {
         }
         return $text;
     }
+
 }

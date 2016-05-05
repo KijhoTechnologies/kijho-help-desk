@@ -35,3 +35,8 @@ div.margin-negative {
 #articles-list {
     float: left !important;
 }
+
+.ticket-options a {
+  font-size: 12px !important;
+  font-weight: normal !important;
+}

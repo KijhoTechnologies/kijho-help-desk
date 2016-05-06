@@ -79,7 +79,7 @@ En tus entidades proveedores de usuarios, debes implementar la siguiente interfa
    }
 </pre>
 
-Al implementar la interface anterior, es necesario implementar los siguientes metodos:
+Al implementar la interface anterior, es necesario implementar las siguientes funciones:
 
 <pre style="font-family: Courier New;">
     /**
@@ -111,9 +111,9 @@ Al implementar la interface anterior, es necesario implementar los siguientes me
 <strong>NOTA:</strong>
 Es posible usar una misma entidad para ser el proveedor de usuarios de Clientes y Operadores.
 
-Los Operadores son las personas que atenderan los Tickets de Soporte enviados por los clientes, 
-para ello el metodo getIsTicketOperator() debe retornar true, o una variable booleana de la entidad para elegir
-quienes de tus administradores podran atender Tickets de Soporte.
+Los Operadores son las personas que atenderán los Tickets de Soporte enviados por los clientes, 
+para ello la función getIsTicketOperator() debe retornar true, o una variable booleana de la entidad para elegir
+quienes de tus administradores podrán atender Tickets de Soporte.
 
 
 Habilitamos el servicio "ticket_provider" en las variables globales de twig, archivo config.yml:
@@ -151,7 +151,7 @@ Configura las rutas del bundle de soporte en el archivo routing.yml
         prefix:   /help-desk-operator
 </pre>
 
-Configura tus reglas de control de acceso en el archivo security.yml
+Configura tus reglas de control de accesos en el archivo security.yml
 
 <pre style="font-family: Courier New;">
     access_control:
@@ -160,61 +160,55 @@ Configura tus reglas de control de acceso en el archivo security.yml
 </pre>
 
 
-Para acceder al menu del cliente, copia en cualquiera de tus templates el siguiente enlace:
+Para acceder al menú del cliente, crea un enlace en cualquiera de tus templates con la siguiente ruta:
 
 <pre style="font-family: Courier New;">
-    <a href="{{path('help_desk_client_tickets',{'status':'all'})}}">Tickets de Soporte</a>
+    href="{{path('help_desk_client_tickets',{'status':'all'})}}"
 </pre>
 
 
-Para acceder al menu del operador, copia en cualquiera de tus templates el siguiente enlace:
+Para acceder al menú del operador, crea un enlace en cualquiera de tus templates con la siguiente ruta:
 
 <pre style="font-family: Courier New;">
-    <a href="{{path('help_desk_operator_tickets',{'status':'all'})}}">Tickets de Soporte</a>
+    href="{{path('help_desk_operator_tickets',{'status':'all'})}}"
 </pre>
 
 <strong>NOTA:</strong>
 Puedes modificar el enlace para abrir el modulo en un iframe, en una ventana emergente o como lo desees.
 
 
-Desde tus plantillas twig, puedes acceder a diferentes metodos para obtener información acerca de los Tickets de soporte:
+Desde tus plantillas Twig, puedes acceder a diferentes funciones para obtener información acerca de los Tickets de soporte:
 
 Para el cliente:
 <pre style="font-family: Courier New;">
-    {# Numero total de tickets del cliente #}
+    {# Número total de tickets del cliente #}
     {{ ticket_provider.getCountClientTickets(app.user.id) }}
 
-    {# Numero de tickets activos del cliente #}
+    {# Número de tickets activos del cliente #}
     {{ticket_provider.getCountClientTickets(app.user.id, 'active')}}
 
-    {# Numero de tickets cerrados del cliente #}
+    {# Número de tickets cerrados del cliente #}
     {{ticket_provider.getCountClientTickets(app.user.id, 'closed')}}
 </pre>
 
 Para el administrador:
 <pre style="font-family: Courier New;">
-    {# Numero total de tickets #}
+    {# Número total de tickets #}
     {{ticket_provider.getCountTickets()}}
 
-    {# Numero de tickets activos #}
+    {# Número de tickets activos #}
     {{ticket_provider.getCountTickets('active')}}
 
-    {# Numero de tickets cerrados #}
+    {# Número de tickets cerrados #}
     {{ticket_provider.getCountTickets('closed')}}
 </pre>
 
 
-
-
-
-
-
-
-
-
-
-
-
+<strong>Categorías de Tickets y Notificaciones por Correo:</strong>
+Para que un cliente pueda crear tickets de soporte, debe haber existir en base de datos al menos una categoría de tickets.
+Estas categorías son administradas por los operadores en su respectivo modulo, asi que una vez tengas 
+todo configurado asegurate de crear tus categorías de tickets y colocar los emails a donde llegarán las
+notificaciones por correo electrónico.
 
 </body>
 </html>

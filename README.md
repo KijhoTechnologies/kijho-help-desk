@@ -14,14 +14,14 @@ Bundle para Symfony >= 2.8, para administrar tickets de soporte de clientes
 Requisitos:
 
 <pre style="font-family: Courier New;">
-    "sensio/distribution-bundle": "~5.0",
+    "sensio/distribution-bundle": "~4.0",
 </pre>
 
 
 En la consola del proyecto ejecute:
 
 <pre style="font-family: Courier New;">
-    composer require kijho-technologies/kijho-help-desk master
+    composer require kijho-technologies/kijho-help-desk dev-master
 </pre>
 
 

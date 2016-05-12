@@ -51,6 +51,7 @@ class OperatorController extends Controller {
         return $this->render('HelpDeskBundle:Operator:tickets.html.twig', array(
                     'tickets' => $tickets,
                     'status' => $status,
+                    'current_date' => Util::getCurrentDate(),
         ));
     }
     

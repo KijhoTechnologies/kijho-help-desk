@@ -34,6 +34,8 @@
                                     {% if ticket.lastUpdate is not empty %}
                                         <p class="ticket-description"><small>{{'help_desk.tickets.last_update'|trans}} : </small> {{ticket.lastUpdate|date('d/m/Y h:i a')}}</p>
                                     {% endif %}
+                                    {% set elapsedTime = ticket_provider.getSecondsBetweenDates(ticket.creationDate, current_date) %}
+                                    <p class="ticket-description"><small>{{'help_desk.tickets.elapsed_time'|trans}} : </small> {{ticket_provider.getElapsedTime(elapsedTime)}}</p>
                                 </td>
                                 <td>
                                     <p class="ticket-description"><small>{{'help_desk.tickets.subject'|trans}} : </small> {{ticket.subject}}</p>
@@ -45,7 +47,6 @@
                                     {% if ticket.operatorId is not empty %}
                                         <p class="ticket-description"><small>{{'help_desk.tickets.operator'|trans}} : </small> {{ticket.operator.name|default('Not Assigned')}}</p>
                                     {% endif %}
-                                    
                                 </td>
                                 <td class="ticket-options" width="110px">
                                     <a class="btn btn-sm" href="{{path('help_desk_operator_tickets_view',{'id':ticket.id})}}">

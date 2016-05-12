@@ -17,6 +17,18 @@ help_desk:
         please_wait: "Por favor espere.."
         cancel: "Cancelar"
         unknown_error: "Error desconocido, intente de nuevo"
+        year: "Año"
+        years: "Años"
+        week: "Semana"
+        weeks: "Semanas"
+        day: "Día"
+        days: "Días"
+        hour: "Hora"
+        hours: "Horas"
+        minute: "Minuto"
+        minutes: "Minutos"
+        second: "Segundo"
+        seconds: "Segundos"
     
     tickets:
         number_date: "Número y Fecha"
@@ -53,6 +65,7 @@ help_desk:
         close_warning: "Esta seguro que desea cerrar este ticket ?"
         closing: "Cerrando.."
         already_closed_message: "El ticket ya se habia cerrado anteriormente"
+        elapsed_time: "Tiempo Transcurrido"
         
     ticket_creation:
         new_ticket: "Nuevo Ticket de Soporte"

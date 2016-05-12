@@ -15,6 +15,8 @@ help_desk:
         save_changes: "Guardar Cambios"
         create: "Crear"
         please_wait: "Por favor espere.."
+        cancel: "Cancelar"
+        unknown_error: "Error desconocido, intente de nuevo"
     
     tickets:
         number_date: "Número y Fecha"
@@ -47,6 +49,10 @@ help_desk:
         succesfully_send: "Mensaje enviado exitosamente"
         error_while_send: "Error enviando el mensaje. Intente de nuevo"
         not_found_message: "Ticket no encontrado"
+        
+        close_warning: "Esta seguro que desea cerrar este ticket ?"
+        closing: "Cerrando.."
+        already_closed_message: "El ticket ya se habia cerrado anteriormente"
         
     ticket_creation:
         new_ticket: "Nuevo Ticket de Soporte"
@@ -94,6 +100,9 @@ help_desk:
         clic_message: "Clic aquí para ver el mensaje completo"
         new_ticket_comment: "Nuevo Comentario en un Ticket"
         new_comment_message: "Tienes un nuevo comentario de "
+        closed_ticked: "Ticked Cerrado"
+        has_closed_ticket: " ha cerrado el ticket"
+        clic_ticket_details: "Clic aquí para ver los detalles del ticket"
         
     email:
         hi: "Hola"

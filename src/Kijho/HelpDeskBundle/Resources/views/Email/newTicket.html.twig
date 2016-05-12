@@ -19,6 +19,8 @@
                 
                 <p>{{ 'help_desk.ticket_notification.new_ticket_message'|trans }} {{ticket.client.name}}</p>
                 
+                <p><strong>{{ 'help_desk.global.ticket'|trans }} # {{ticket.id}}</strong></p>
+                
                 <p><strong>{{ 'help_desk.tickets.category'|trans }} : </strong> {{ticket.category.name}}</p>
                 
                 <p><strong>{{ 'help_desk.tickets.priority'|trans }} : </strong> {{ticket.textPriority()|trans}}</p>

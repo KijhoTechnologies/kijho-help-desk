@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <h1>{{ 'help_desk.ticket_notification.closed_ticked'|trans }}</h1>
+                
+                {% if ticket.operator is not empty %}
+                    <p>{{ 'help_desk.email.hi'|trans }} {{ticket.operator.name}}</p>
+                {% endif %}
+                
+                <p><strong>{{ 'help_desk.global.ticket'|trans }} # {{ticket.id}}</strong></p>
+                
+                {% if ticket.client is not empty %}
+                    <p>{{ticket.client.name}} {{ 'help_desk.ticket_notification.has_closed_ticket'|trans }}</p>
+                {% endif %}
+                
+                <a href="{{app.request.getSchemeAndHttpHost()~path('help_desk_operator_tickets_view',{'id':ticket.id})}}">{{ 'help_desk.ticket_notification.clic_ticket_details'|trans }}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

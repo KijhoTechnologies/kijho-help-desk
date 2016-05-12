@@ -46,7 +46,7 @@
                                     {% endif %}
                                     
                                 </td>
-                                <td class="ticket-options" width="110px">
+                                <td class="ticket-options text-center" width="110px">
                                     <a class="btn btn-sm" href="{{path('help_desk_client_tickets_view',{'id':ticket.id})}}">
                                         <i class="fa fa-comment"></i><br>
                                         <strong>{{ticket.getCountTotalComments()}}</strong> {{'help_desk.ticket_comment.comments'|trans|upper}}<br>
@@ -54,7 +54,7 @@
                                     </a><br>
                                     
                                     {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
-                                        {#<a class="btn btn-sm"><i class="fa fa-times"></i> {{'help_desk.global.close'|trans}}</a><br>#}
+                                        <a class="btn btn-sm btn-danger close-ticket" ticket-id="{{ticket.id}}"><i class="fa fa-times"></i> {{'help_desk.global.close'|trans}}</a><br>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -66,4 +66,56 @@
             </article>
         </main>
     </div><!-- row -->
+{% endblock %}
+
+{% block scripts %}
+    $(".close-ticket").click(function(){
+       var object = $(this);
+       var ticketId = object.attr('ticket-id');
+       
+       
+       bootbox.confirm({
+            message: "{{'help_desk.tickets.close_warning'|trans}}",
+            buttons: {
+                'cancel': {
+                    label: '{{'help_desk.global.cancel' | trans}}',
+                    className: 'btn-default'
+                },
+                'confirm': {
+                    label: '{{'help_desk.ticket_comment.close_ticket' | trans}}',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+
+                if (result == true)
+                {
+                    object.attr('disabled','disabled');
+                    object.html("{{'help_desk.tickets.closing'|trans}}");
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{path('help_desk_client_tickets_close')}}",
+                        dataType: 'json',
+                        data: {ticketId: ticketId},
+                        success: function (r)
+                        {
+                            object.removeAttr('disabled');
+                            if (r.result == '__OK__') {
+                                window.location.reload();
+                            } else {
+                                bootbox.alert(r.msg);
+                                object.html("{{'help_desk.ticket_comment.close_ticket'|trans}}");
+                            }
+                        },
+                        error: function (r)
+                        {
+                            object.removeAttr('disabled');
+                            object.html("{{'help_desk.ticket_comment.close_ticket'|trans}}");
+                            bootbox.alert("{{'help_desk.global.unknown_error'|trans}}")
+                        }
+                    });
+                }
+            }
+        });
+    });
 {% endblock %}

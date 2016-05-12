@@ -21,6 +21,8 @@
                     <p>{{ 'help_desk.email.hi'|trans }} {{ticket_comment.client.name}}</p>
                 {% endif %}
                 
+                <p><strong>{{ 'help_desk.global.ticket'|trans }} # {{ticket_comment.ticket.id}}</strong></p>
+                
                 <p>{{ 'help_desk.ticket_notification.new_comment_message'|trans }} 
                     {% if ticket_comment.type == constant('Kijho\\HelpDeskBundle\\Entity\\TicketComment::COMMENT_BY_CLIENT') %}
                         {{ticket_comment.client.name}}

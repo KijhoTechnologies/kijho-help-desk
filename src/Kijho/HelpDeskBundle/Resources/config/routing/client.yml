@@ -9,3 +9,8 @@ help_desk_client_tickets_new:
 help_desk_client_tickets_view:
     path:     /tickets/{id}/view
     defaults: { _controller: HelpDeskBundle:Client:viewTicket }
+    
+help_desk_client_tickets_close:
+    path:     /closeTicket
+    defaults: { _controller: HelpDeskBundle:Client:closeTicket }
+    methods: [POST]

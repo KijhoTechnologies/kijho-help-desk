@@ -52,7 +52,7 @@ class EmailManager {
             $ticket->setClient($client);
 
             $message = \Swift_Message::newInstance()
-                    ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_client'))
+                    ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_client') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticket->getId())
                     ->setFrom($client->getEmail())
                     ->setTo($ticket->getCategory()->getEmail())
                     ->setBody(
@@ -88,7 +88,7 @@ class EmailManager {
                     $ticketComment->setOperator($operator);
 
                     $message = \Swift_Message::newInstance()
-                            ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment'))
+                            ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticketComment->getTicket()->getId())
                             ->setFrom($category->getEmail())
                             ->setTo($client->getEmail())
                             ->setBody(
@@ -105,7 +105,7 @@ class EmailManager {
                 $ticketComment->setOperator($operator);
 
                 $message = \Swift_Message::newInstance()
-                        ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment'))
+                        ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticketComment->getTicket()->getId())
                         ->setFrom($client->getEmail())
                         ->setTo($category->getEmail())
                         ->setBody(
@@ -116,6 +116,37 @@ class EmailManager {
                 ;
                 $this->mailer->send($message);
             }
+        }
+    }
+
+    /**
+     * Permite enviar al administrador la notificacion de que un ticket fue cerrado
+     * @author Cesar Giraldo <cesargiraldo1108@gmail.com> May 12, 2016
+     * @param Entity\Ticket $ticket
+     */
+    public function sendNotificationClosedTicket(Entity\Ticket $ticket) {
+
+        $client = $this->container->get('ticket_provider')->getTicketClient($ticket->getClientId());
+
+        if ($client && !empty($client->getEmail()) && !empty($ticket->getCategory()->getEmail())) {
+            $ticket->setClient($client);
+
+            $operator = $this->container->get('ticket_provider')->getTicketOperator($ticket->getOperatorId());
+            if ($operator) {
+                $ticket->setOperator($operator);
+            }
+
+            $message = \Swift_Message::newInstance()
+                    ->setSubject($this->translator->trans('help_desk.ticket_notification.closed_ticked') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticket->getId())
+                    ->setFrom($client->getEmail())
+                    ->setTo($ticket->getCategory()->getEmail())
+                    ->setBody(
+                    $this->container->get('templating')->render(
+                            'HelpDeskBundle:Email:closedTicket.html.twig', array('ticket' => $ticket)
+                    ), 'text/html'
+                    )
+            ;
+            $this->mailer->send($message);
         }
     }
 

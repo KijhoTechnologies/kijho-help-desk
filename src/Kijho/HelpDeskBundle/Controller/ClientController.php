@@ -198,6 +198,7 @@ class ClientController extends Controller {
                 if ($ticket->getStatus() != Entity\Ticket::STATUS_CLOSED) {
 
                     $ticket->setStatus(Entity\Ticket::STATUS_CLOSED);
+                    $ticket->setLastUpdate(Util::getCurrentDate());
                     $em->persist($ticket);
                     $em->flush();
 

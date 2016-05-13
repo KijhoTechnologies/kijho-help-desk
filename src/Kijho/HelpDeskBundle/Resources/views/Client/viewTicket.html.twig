@@ -10,7 +10,10 @@
         <main class="col-md-9 cf create_ticket" id="articles-list">
             <article class="post full-width">
                 <h1 class="create_ticket">{{'help_desk.global.ticket'|trans}} # {{ticket.id}} ({{ticket.textStatus()|trans}})
-                    <span class="pull-right"></span>
+                    {#<span class="pull-right"></span>#}
+                    {% if ticket.status != constant('Kijho\\HelpDeskBundle\\Entity\\Ticket::STATUS_CLOSED') %}
+                        <a class="btn btn-sm btn-danger close-ticket pull-right" ticket-id="{{ticket.id}}" style="font-size: 12px;">{{'help_desk.global.close'|trans}}</a>
+                    {% endif %}
                 </h1>
                 {{ filters.showMessage('client_success_message', 'success')}}
                 {{ filters.showMessage('client_error_message', 'danger')}}
@@ -130,6 +133,56 @@
 {% endblock %}
 
 {% block scripts %}
+    
+    $(".close-ticket").click(function(){
+       var object = $(this);
+       var ticketId = object.attr('ticket-id');
+       
+       
+       bootbox.confirm({
+            message: "{{'help_desk.tickets.close_warning'|trans}}",
+            buttons: {
+                'cancel': {
+                    label: '{{'help_desk.global.cancel' | trans}}',
+                    className: 'btn-default'
+                },
+                'confirm': {
+                    label: '{{'help_desk.ticket_comment.close_ticket' | trans}}',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+
+                if (result == true)
+                {
+                    object.attr('disabled','disabled');
+                    object.html("{{'help_desk.tickets.closing'|trans}}");
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{path('help_desk_client_tickets_close')}}",
+                        dataType: 'json',
+                        data: {ticketId: ticketId},
+                        success: function (r)
+                        {
+                            object.removeAttr('disabled');
+                            if (r.result == '__OK__') {
+                                window.location.reload();
+                            } else {
+                                bootbox.alert(r.msg);
+                                object.html("{{'help_desk.ticket_comment.close_ticket'|trans}}");
+                            }
+                        },
+                        error: function (r)
+                        {
+                            object.removeAttr('disabled');
+                            object.html("{{'help_desk.ticket_comment.close_ticket'|trans}}");
+                            bootbox.alert("{{'help_desk.global.unknown_error'|trans}}")
+                        }
+                    });
+                }
+            }
+        });
+    });
     
     $(".comment-reply-link").click(function() {
         $("#helpdeskbundle_client_ticket_comment_type_comment").focus();

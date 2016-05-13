@@ -106,9 +106,10 @@ class ClientController extends Controller {
     }
 
     /**
-     * Permite visualizar los detalles de un ticket
+     * Permite visualizar los detalles de un ticket y almacenar comentarios
+     * @author Cesar Giraldo <cnaranjo@kijho.com> May 05, 2016
      * @param Request $request
-     * @param type $id
+     * @param integer $id identificador del ticket
      * @return type
      */
     public function viewTicketAction(Request $request, $id) {
@@ -182,6 +183,13 @@ class ClientController extends Controller {
         }
     }
 
+    
+    /**
+     * Permite realizar el cierre de un ticket por parte del cliente
+     * @author Cesar Giraldo <cnaranjo@kijho.com> May 05, 2016
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function closeTicketAction(Request $request) {
 
         $response = array('result' => '__KO__', 'msg' => '');

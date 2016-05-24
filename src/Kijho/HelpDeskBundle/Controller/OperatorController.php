@@ -101,7 +101,7 @@ class OperatorController extends Controller {
                 $em->flush();
                 
                 //notificamos via email el comentario del operador
-                $this->get('email_manager')->sendNotificationNewComment($ticketComment);
+                $this->get('help_desk_email_manager')->sendNotificationNewComment($ticketComment);
                 
                 $this->get('session')->getFlashBag()->add('operator_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
                 return $this->redirectToRoute('help_desk_operator_tickets_view', array('id' => $ticket->getId()));

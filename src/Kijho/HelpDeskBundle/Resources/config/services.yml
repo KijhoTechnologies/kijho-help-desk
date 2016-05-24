@@ -3,7 +3,7 @@ services:
         class: Kijho\HelpDeskBundle\Services\TicketProvider
         arguments: [@service_container, @doctrine.orm.entity_manager]
         
-    email_manager:
+    help_desk_email_manager:
         class: Kijho\HelpDeskBundle\Services\EmailManager
         arguments: 
             requestStack:   "@request_stack"

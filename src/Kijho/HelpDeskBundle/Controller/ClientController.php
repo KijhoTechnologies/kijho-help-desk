@@ -91,7 +91,7 @@ class ClientController extends Controller {
                 $em->flush();
 
                 //enviamos el correo electronico notificando el ticket
-                $this->container->get('email_manager')->sendNotificationNewTicket($ticket);
+                $this->container->get('help_desk_email_manager')->sendNotificationNewTicket($ticket);
 
                 $this->get('session')->getFlashBag()->add('client_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
                 return $this->redirectToRoute('help_desk_client_tickets', array('status' => self::STATUS_ALL));
@@ -148,7 +148,7 @@ class ClientController extends Controller {
                 $em->flush();
 
                 //notificamos via email el comentario del cliente
-                $this->get('email_manager')->sendNotificationNewComment($ticketComment);
+                $this->get('help_desk_email_manager')->sendNotificationNewComment($ticketComment);
 
                 $this->get('session')->getFlashBag()->add('client_success_message', $this->get('translator')->trans('help_desk.tickets.succesfully_send'));
                 return $this->redirectToRoute('help_desk_client_tickets_view', array('id' => $ticket->getId()));
@@ -211,7 +211,7 @@ class ClientController extends Controller {
                     $em->flush();
 
                     //notificamos via email que el cliente cerro el ticket
-                    $this->get('email_manager')->sendNotificationClosedTicket($ticket);
+                    $this->get('help_desk_email_manager')->sendNotificationClosedTicket($ticket);
                     
                     $response['result'] = '__OK__';
                 } else {

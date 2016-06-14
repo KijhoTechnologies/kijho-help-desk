@@ -62,7 +62,7 @@ help_desk:
         error_while_send: "Error enviando el mensaje. Intente de nuevo"
         not_found_message: "Ticket no encontrado"
         
-        close_warning: "Esta seguro que desea cerrar este ticket ?"
+        close_warning: "Está seguro que desea cerrar este ticket ?"
         closing: "Cerrando.."
         already_closed_message: "El ticket ya se habia cerrado anteriormente"
         elapsed_time: "Tiempo Transcurrido"

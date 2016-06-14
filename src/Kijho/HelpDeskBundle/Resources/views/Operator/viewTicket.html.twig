@@ -19,12 +19,12 @@
                         <td width="350px">
                             <label>{{'help_desk.global.ticket'|trans}} # {{ticket.id}}</label> 
                             <p class="ticket-description"><small>{{'help_desk.tickets.client'|trans}} : </small> {{ticket.client.name|title}}</p>
-                            <p class="ticket-description"><small>{{'help_desk.tickets.creation_date'|trans}} : </small>{{ticket.creationDate|date('d/m/Y h:i a')}}</p>
+                            <p class="ticket-description"><small>{{'help_desk.tickets.creation_date'|trans}} : </small>{{ticket.creationDate|date('m/d/Y h:i a')}}</p>
                             <p class="ticket-description"><small>{{'help_desk.tickets.priority'|trans}} : </small> 
                                 <label class="label {{ticket.getLabelClassByPriority()}}">{{ticket.textPriority()|trans}}</label>
                             </p>
                             {% if ticket.lastUpdate is not empty %}
-                                <p class="ticket-description"><small>{{'help_desk.tickets.last_update'|trans}} : </small> {{ticket.lastUpdate|date('d/m/Y h:i a')}}</p>
+                                <p class="ticket-description"><small>{{'help_desk.tickets.last_update'|trans}} : </small> {{ticket.lastUpdate|date('m/d/Y h:i a')}}</p>
                             {% endif %}
                         </td>
                         <td>

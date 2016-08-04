@@ -44,14 +44,16 @@ class CategoryController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $category = new Entity\TicketCategory();
-
         //creamos el formulario para la creacion de comentarios del cliente
         $formCategory = $this->createForm(TicketCategoryType::class, $category);
         $formCategory->handleRequest($request);
+        $emails = $request->request->get('helpdeskbundle_operator_ticket_category_type')['email'];
         
         if ($formCategory->isSubmitted() && $formCategory->isValid()) {
+
             //fomateamos el slug
             $slug = strtolower(str_replace(' ', '_', $category->getName()));
+            $category->setEmail($emails);
             $category->setSlug($slug);
             $em->persist($category);
             $em->flush();

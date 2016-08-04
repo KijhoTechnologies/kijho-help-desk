@@ -6,17 +6,18 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>{% block title %}{{'help_desk.tickets.tickets'|trans}}{% endblock %}</title>     
-        
+
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
         <!-- Optional theme -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-        
+
         <link href="{{ asset('bundles/helpdesk/css/custom-style.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ asset('bundles/helpdesk/css/themewagon.com.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ asset('bundles/helpdesk/css/reply.css') }}" type="text/css" rel="stylesheet"/>
-        
+        <link href="{{ asset('bundles/helpdesk/css/bootstrap-tagsinput.css') }}" type="text/css" rel="stylesheet"/>
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head><!--/head-->
     <body>
@@ -42,31 +43,33 @@
 
 
         {% block javascripts %}
-            
+
             <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/jquery-2.1.4.min.js') }}"></script>
-            
+
             <!-- Latest compiled and minified JavaScript -->
             <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-            
+
             <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/bootbox.min.js') }}"></script>
-            
+
+            <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/bootstrap-tagsinput.min.js') }}"></script>
+
             <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/js-webshim/minified/polyfiller.js') }}"></script>
-            
+
             <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
             <script type="text/javascript" src="{{ asset('bundles/helpdesk/js/utilities.js') }}"></script>
-            
+
             <script type="text/javascript">
                 $(document).ready(function () {
                     webshims.polyfill();
-                    {% block scripts %}
-                    {% endblock %}
-                });
-                
+                {% block scripts %}
+                {% endblock %}
+                        });
+
                 {% block functions_javascript %}
                 {% endblock %}
             </script>
-           
+
         {% endblock %}
     </body>
 </html>

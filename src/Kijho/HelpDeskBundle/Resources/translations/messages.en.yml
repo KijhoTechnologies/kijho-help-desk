@@ -32,8 +32,8 @@ help_desk:
     
     tickets:
         number_date: "Number & Date"
-        tickets: "Support Tickets"
-        my_tickets: "My Support Tickets"
+        tickets: "Tickets"
+        my_tickets: "My Tickets"
         active_tickets: "Active Tickets"
         closed_tickets: "Closed Tickets"
         status: "Status"

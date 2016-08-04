@@ -14,49 +14,49 @@
                 </h1>
                 {{ filters.showMessage('operator_error_message', 'danger')}}
                 {{ form_start(form_category, {'action': '', 'method': 'POST', 'attr':{'id':'form-new-category'} }) }}
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ form_label(form_category.name)}} <em>*</em>
-                                {{ form_widget(form_category.name, {'attr':{'class':'form-control'}}) }}
-                                {{ form_errors(form_category.name) }}
-                            </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_label(form_category.name)}} <em>*</em>
+                            {{ form_widget(form_category.name, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form_category.name) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ form_label(form_category.email)}} <em>*</em>
-                                {{ form_widget(form_category.email, {'attr':{'class':'form-control'}}) }}
-                                {{ form_errors(form_category.email) }}
-                            </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_label(form_category.email)}} <em>*</em>
+                            {{ form_widget(form_category.email, {'attr':{'placeholder':'test@test.com, test@test.com, separated by comas'}}) }}
+                            {{ form_errors(form_category.email) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">        
-                            <div class="col-md-12">
-                                {{ form_label(form_category.isEnabled, ' ', {'label_attr':{'class':'hidden'}})}}
-                                <div class="checkbox">
-                                    <label>
-                                        {{ form_widget(form_category.isEnabled, {'attr':{'class':''}}) }} {{'help_desk.ticket_category.enabled'|trans}}
-                                    </label>
-                                </div>
-                                {{ form_errors(form_category.isEnabled) }}
+                </div>
+                <div class="form-group">
+                    <div class="row">        
+                        <div class="col-md-12">
+                            {{ form_label(form_category.isEnabled, ' ', {'label_attr':{'class':'hidden'}})}}
+                            <div class="checkbox">
+                                <label>
+                                    {{ form_widget(form_category.isEnabled, {'attr':{'class':''}}) }} {{'help_desk.ticket_category.enabled'|trans}}
+                                </label>
                             </div>
+                            {{ form_errors(form_category.isEnabled) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ form_label(form_category.description)}}
-                                {{ form_widget(form_category.description, {'attr':{'class':'form-control'}}) }}
-                                {{ form_errors(form_category.description) }}
-                            </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_label(form_category.description)}}
+                            {{ form_widget(form_category.description, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form_category.description) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        {{ form_widget(form_category.submit, {'attr':{'class':'btn btn-success btn-color-white'}}) }}
-                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form_category.submit, {'attr':{'class':'btn btn-success btn-color-white'}}) }}
+                </div>
                 {{ form_end(form_category) }}
             </article>
         </main>
@@ -64,11 +64,14 @@
 {% endblock %}
 
 {% block scripts %}
-    
+
     $("#form-new-category").submit(function () {
-        $("#helpdeskbundle_operator_ticket_category_type_submit").attr('disabled', 'disabled');
-        $("#helpdeskbundle_operator_ticket_category_type_submit").html("{{'help_desk.global.please_wait'|trans}}");
+    $("#helpdeskbundle_operator_ticket_category_type_submit").attr('disabled', 'disabled');
+    $("#helpdeskbundle_operator_ticket_category_type_submit").html("{{'help_desk.global.please_wait'|trans}}");
     });
     $("#helpdeskbundle_operator_ticket_category_type_submit").removeAttr('disabled');
-    
+
+    $('#helpdeskbundle_operator_ticket_category_type_email').tagsinput({
+    maxTags: 10
+    });
 {% endblock %}

@@ -52,12 +52,13 @@ class TicketCategory implements TicketCategoryInterface {
      * Boolean par habilitar o deshabilitar categorias de tickets
      * @ORM\Column(name="tcat_is_enabled", type="boolean", nullable=true)
      */
-    protected $isEnabled;
-
+    protected $isEnabled;    
+    
     /**
-     * Correo al cual seran enviados los tickets de la categoria
-     * @ORM\Column(name="tcat_email", type="text", nullable=true)
-     * @Assert\Email(checkMX=true)
+     * Correo al cual seran enviados los tickets de la categoria, pueden ser varios.
+     * @var array
+     *
+     * @ORM\Column(name="tcat_email", type="string")
      */
     protected $email;
 
@@ -85,10 +86,6 @@ class TicketCategory implements TicketCategoryInterface {
         return $this->isEnabled;
     }
 
-    function getEmail() {
-        return $this->email;
-    }
-
     function setName($name) {
         $this->name = $name;
     }
@@ -104,13 +101,17 @@ class TicketCategory implements TicketCategoryInterface {
     function setCreationDate($creationDate) {
         $this->creationDate = $creationDate;
     }
-
-    function setIsEnabled($isEnabled) {
-        $this->isEnabled = $isEnabled;
+    
+    function getEmail() {
+        return $this->email;
     }
 
     function setEmail($email) {
         $this->email = $email;
+    }
+
+        function setIsEnabled($isEnabled) {
+        $this->isEnabled = $isEnabled;
     }
 
     public function __toString() {

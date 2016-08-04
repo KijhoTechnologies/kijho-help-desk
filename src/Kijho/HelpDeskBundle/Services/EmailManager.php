@@ -22,7 +22,7 @@ class EmailManager {
     protected $translator;
     protected $em;
 
-    const SENDER_GENERAL_EMAILS = 'myagilescrum@gmail.com';
+    const SENDER_GENERAL_EMAILS = 'testmasterunlock@gmail.com';
 
     /**
      * Constructor del servicio encargado de enviar todos los correos de la aplicacion
@@ -47,6 +47,16 @@ class EmailManager {
     public function sendNotificationNewTicket(Entity\Ticket $ticket) {
 
         $client = $this->container->get('ticket_provider')->getTicketClient($ticket->getClientId());
+        $emails = $ticket->getCategory()->getEmail();
+        $arrayEmails = explode(",", $emails);
+        $validEmails = array();
+
+        //validar que lo que esta en el campo de email sea valido
+        foreach ($arrayEmails as $mails) {
+            if (filter_var($mails, FILTER_VALIDATE_EMAIL)) {
+                array_push($validEmails, $mails);
+            }
+        }
 
         if ($client && !empty($client->getEmail()) && !empty($ticket->getCategory()->getEmail())) {
             $ticket->setClient($client);
@@ -54,7 +64,7 @@ class EmailManager {
             $message = \Swift_Message::newInstance()
                     ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_client') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticket->getId())
                     ->setFrom($client->getEmail())
-                    ->setTo($ticket->getCategory()->getEmail())
+                    ->setBcc($validEmails)
                     ->setBody(
                     $this->container->get('templating')->render(
                             'HelpDeskBundle:Email:newTicket.html.twig', array('ticket' => $ticket)
@@ -75,6 +85,18 @@ class EmailManager {
         $client = $this->container->get('ticket_provider')->getTicketClient($ticketComment->getTicket()->getClientId());
         $category = $ticketComment->getTicket()->getCategory();
 
+        $emails = $category->getEmail();
+        $arrayEmails = explode(",", $emails);
+        $validEmails = array();
+
+        //validar que lo que esta en el campo de email sea valido
+        foreach ($arrayEmails as $mails) {
+            if (filter_var($mails, FILTER_VALIDATE_EMAIL)) {
+                array_push($validEmails, $mails);
+            }
+        }
+
+
         if ($category && $client && !empty($client->getEmail())) {
 
             $ticketComment->setClient($client);
@@ -82,6 +104,7 @@ class EmailManager {
 
             if ($ticketComment->getType() == Entity\TicketComment::COMMENT_BY_ADMIN) {
 
+//                \Symfony\Component\VarDumper\VarDumper::dump($client->getEmail());die();
                 $operator = $this->container->get('ticket_provider')->getTicketOperator($ticketComment->getOperatorId());
 
                 if ($operator) {
@@ -89,7 +112,7 @@ class EmailManager {
 
                     $message = \Swift_Message::newInstance()
                             ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticketComment->getTicket()->getId())
-                            ->setFrom($category->getEmail())
+                            ->setFrom($validEmails)
                             ->setTo($client->getEmail())
                             ->setBody(
                             $this->container->get('templating')->render(
@@ -104,10 +127,13 @@ class EmailManager {
 
                 $ticketComment->setOperator($operator);
 
+
+
                 $message = \Swift_Message::newInstance()
                         ->setSubject($this->translator->trans('help_desk.ticket_notification.new_ticket_comment') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticketComment->getTicket()->getId())
                         ->setFrom($client->getEmail())
-                        ->setTo($category->getEmail())
+//                        ->setTo($category->getEmail())
+                        ->setBcc($validEmails)
                         ->setBody(
                         $this->container->get('templating')->render(
                                 'HelpDeskBundle:Email:newTicketComment.html.twig', array('ticket_comment' => $ticketComment)
@@ -127,6 +153,16 @@ class EmailManager {
     public function sendNotificationClosedTicket(Entity\Ticket $ticket) {
 
         $client = $this->container->get('ticket_provider')->getTicketClient($ticket->getClientId());
+        $emails = $ticket->getCategory()->getEmail();
+        $arrayEmails = explode(",", $emails);
+        $validEmails = array();
+
+        //validar que lo que esta en el campo de email sea valido
+        foreach ($arrayEmails as $mails) {
+            if (filter_var($mails, FILTER_VALIDATE_EMAIL)) {
+                array_push($validEmails, $mails);
+            }
+        }
 
         if ($client && !empty($client->getEmail()) && !empty($ticket->getCategory()->getEmail())) {
             $ticket->setClient($client);
@@ -139,7 +175,8 @@ class EmailManager {
             $message = \Swift_Message::newInstance()
                     ->setSubject($this->translator->trans('help_desk.ticket_notification.closed_ticked') . ' - ' . $this->translator->trans('help_desk.global.ticket') . ' # ' . $ticket->getId())
                     ->setFrom($client->getEmail())
-                    ->setTo($ticket->getCategory()->getEmail())
+//                    ->setTo($ticket->getCategory()->getEmail())
+                    ->setBcc($validEmails)
                     ->setBody(
                     $this->container->get('templating')->render(
                             'HelpDeskBundle:Email:closedTicket.html.twig', array('ticket' => $ticket)

@@ -52,7 +52,7 @@ class TicketCategoryType extends AbstractType {
                     'required' => true,
                     'label' => $this->translator->trans('help_desk.ticket_category.name'),
                 ))
-                ->add('email', Type\EmailType::class, array(
+                ->add('email', Type\TextType::class, array(
                     'required' => true,
                     'label' => $this->translator->trans('help_desk.ticket_category.email'),
                 ))

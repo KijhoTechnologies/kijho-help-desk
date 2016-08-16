@@ -1,3 +1,0 @@
-help_desk:
-    resource: "@HelpDeskBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}/

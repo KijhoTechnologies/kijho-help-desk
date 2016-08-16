@@ -36,17 +36,17 @@ Registramos el bundle en el archivo AppKernel.php
 En la consola del proyecto ejecute:
 
 <pre style="font-family: Courier New;">
-    php app/console d:s:u --force
+    php bin/console d:s:u --force
 </pre>
 
 <pre style="font-family: Courier New;">
-    php app/console assets:install
+    php bin/console assets:install
 </pre>
 
 Editamos los proveedores de usuarios del bundle de tickets en el archivo config.yml
 
 <pre style="font-family: Courier New;">
-    # app/config.yml
+    # bin/config.yml
     help_desk:
         client_provider: Acme\DemoBundle\Entity\YourClient
         operator_provider: Acme\DemoBundle\Entity\YourOperator
@@ -119,7 +119,7 @@ quienes de tus administradores podrán atender Tickets de Soporte.
 Habilitamos el servicio "ticket_provider" en las variables globales de twig, archivo config.yml:
 
 <pre style="font-family: Courier New;">
-    # app/config.yml
+    # bin/config.yml
     # Twig Configuration
     twig:
         globals:
@@ -129,7 +129,7 @@ Habilitamos el servicio "ticket_provider" en las variables globales de twig, arc
 Asegurese de haber configurado el idioma:
 
 <pre style="font-family: Courier New;">
-    # app/config.yml
+    # bin/config.yml
     parameters:
         locale: es
 
@@ -141,7 +141,7 @@ Asegurese de haber configurado el idioma:
 Configura las rutas del bundle de soporte en el archivo routing.yml
 
 <pre style="font-family: Courier New;">
-    # app/routing.yml
+    # bin/routing.yml
     help_desk_clients:
         resource: "@HelpDeskBundle/Resources/config/routing/client.yml"
         prefix:   /help-desk-client

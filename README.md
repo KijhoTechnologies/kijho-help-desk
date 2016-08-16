@@ -22,7 +22,7 @@ Requisitos:
 En la consola del proyecto ejecute:
 
 <pre style="font-family: Courier New;">
-    composer require kijho-technologies/kijho-help-desk dev-master
+    composer require kijho/kijho-help-desk dev-master
 </pre>
 
 Registramos el bundle en el archivo AppKernel.php

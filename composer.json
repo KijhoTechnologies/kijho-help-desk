@@ -17,7 +17,7 @@
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/swiftmailer-bundle": "~2.3",
-        "doctrine/doctrine-fixtures-bundle": "2.2.1"
+        "doctrine/doctrine-fixtures-bundle": "dev-master"
     },   
     "extra": {
          "branch-alias": {

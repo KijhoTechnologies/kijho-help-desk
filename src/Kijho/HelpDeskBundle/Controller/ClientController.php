@@ -76,7 +76,7 @@ class ClientController extends Controller {
         }
 
         $ticket = new Entity\Ticket();
-        $form = $this->createForm(TicketType::class, $ticket);
+        $form = $this->createForm(TicketType::class, $ticket, array('translator' => $this->get('translator')));
 
         $form->handleRequest($request);
 
@@ -128,7 +128,7 @@ class ClientController extends Controller {
 
             //creamos el formulario para la creacion de comentarios del cliente
             $ticketComment = new Entity\TicketComment();
-            $formComment = $this->createForm(TicketCommentType::class, $ticketComment);
+            $formComment = $this->createForm(TicketCommentType::class, $ticketComment, array('translator' => $this->get('translator')));
             $formComment->handleRequest($request);
             if ($formComment->isSubmitted() && $formComment->isValid()) {
                 //verificamos si el usuario desea cerrar el ticket

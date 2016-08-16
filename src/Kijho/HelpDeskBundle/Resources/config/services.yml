@@ -9,35 +9,3 @@ services:
             requestStack:   "@request_stack"
             container:      "@service_container"
             entityManager:  "@doctrine.orm.entity_manager"
-        
-    #servicio para pasarle el container al formulario de tickets
-    help_desk.client.form.type.ticket:
-        class: Kijho\HelpDeskBundle\Form\Client\TicketType
-        arguments:
-            - "@service_container"
-        tags:
-            - { name: form.type }
-    
-    #servicio para pasarle el container al formulario de comentarios en tickets para el cliente
-    help_desk.client.form.type.ticket_comment:
-        class: Kijho\HelpDeskBundle\Form\Client\TicketCommentType
-        arguments:
-            - "@service_container"
-        tags:
-            - { name: form.type }
-    
-    #servicio para pasarle el container al formulario de comentarios en tickets para el operador
-    help_desk.operator.form.type.ticket_comment:
-        class: Kijho\HelpDeskBundle\Form\Operator\TicketCommentType
-        arguments:
-            - "@service_container"
-        tags:
-            - { name: form.type }
-    
-    #servicio para pasarle el container al formulario de comentarios en tickets para el operador
-    help_desk.operator.form.type.ticket_category:
-        class: Kijho\HelpDeskBundle\Form\Operator\TicketCategoryType
-        arguments:
-            - "@service_container"
-        tags:
-            - { name: form.type }

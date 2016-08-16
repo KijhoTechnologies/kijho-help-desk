@@ -25,7 +25,7 @@ class LoadBasicData implements FixtureInterface, ContainerAwareInterface {
 
     public function load(ObjectManager $manager) {
 
-        //creamos un cliente de ejemplo
+        //add example client
         $client = new Entity\User();
         $client->setName('John Doe');
         $client->setEmail('client@example.com');
@@ -33,7 +33,7 @@ class LoadBasicData implements FixtureInterface, ContainerAwareInterface {
         $client->setPassword('client');
         $manager->persist($client);
         
-        //creamos un operador de ejemplo
+        //add support user
         $operator = new Entity\User();
         $operator->setName('Albert Einstein');
         $operator->setEmail('operator@example.com');
@@ -41,7 +41,7 @@ class LoadBasicData implements FixtureInterface, ContainerAwareInterface {
         $operator->setPassword('operator');
         $manager->persist($operator);
 
-        //creamos una categoria de tickets
+        //create category tickets
         $category = new Entity\TicketCategory();
         $category->setName('General');
         $category->setSlug('general');

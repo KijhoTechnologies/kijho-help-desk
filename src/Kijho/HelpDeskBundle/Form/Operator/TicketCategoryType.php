@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as Type;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
@@ -14,19 +13,12 @@ use Kijho\HelpDeskBundle\Entity\TicketCategory;
 
 class TicketCategoryType extends AbstractType {
 
-    private $container;
-    private $translator;
-
-    public function __construct(Container $container) {
-        $this->container = $container;
-        $this->translator = $this->container->get('translator');
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        $this->translator = $options['translator'];
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $data = $event->getData();
@@ -74,6 +66,7 @@ class TicketCategoryType extends AbstractType {
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setRequired('translator');
         $resolver->setDefaults(array(
             'data_class' => 'Kijho\HelpDeskBundle\Entity\TicketCategory'
         ));

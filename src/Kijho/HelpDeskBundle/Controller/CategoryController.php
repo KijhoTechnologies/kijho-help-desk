@@ -4,10 +4,8 @@ namespace Kijho\HelpDeskBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Kijho\HelpDeskBundle\Entity as Entity;
-use Kijho\HelpDeskBundle\Form\Operator\TicketCommentType;
 use Kijho\HelpDeskBundle\Form\Operator\TicketCategoryType;
 use Symfony\Component\HttpFoundation\Request;
-use Kijho\HelpDeskBundle\Util\Util;
 
 class CategoryController extends Controller {
 
@@ -45,7 +43,7 @@ class CategoryController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $category = new Entity\TicketCategory();
         //creamos el formulario para la creacion de comentarios del cliente
-        $formCategory = $this->createForm(TicketCategoryType::class, $category);
+        $formCategory = $this->createForm(TicketCategoryType::class, $category, array('translator' => $this->get('translator')));
         $formCategory->handleRequest($request);
         $emails = $request->request->get('helpdeskbundle_operator_ticket_category_type')['email'];
         
@@ -87,7 +85,7 @@ class CategoryController extends Controller {
         if ($category instanceof Entity\TicketCategory) {
 
             //creamos el formulario para la creacion de comentarios del cliente
-            $formCategory = $this->createForm(TicketCategoryType::class, $category);
+            $formCategory = $this->createForm(TicketCategoryType::class, $category, array('translator' => $this->get('translator')));
             $formCategory->handleRequest($request);
             if ($formCategory->isSubmitted() && $formCategory->isValid()) {
 

@@ -1,7 +1,7 @@
 services:
     ticket_provider:
         class: Kijho\HelpDeskBundle\Services\TicketProvider
-        arguments: [@service_container, @doctrine.orm.entity_manager]
+        arguments: ["@service_container", "@doctrine.orm.entity_manager"]
         
     help_desk_email_manager:
         class: Kijho\HelpDeskBundle\Services\EmailManager

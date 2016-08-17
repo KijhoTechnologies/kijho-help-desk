@@ -11,14 +11,6 @@ Bundle para Symfony 2.8 and 3.x, para administrar tickets de soporte de clientes
 
 <h1>Instalación</h1>
 
-Requisitos:
-
-<pre style="font-family: Courier New;">
-    "sensio/distribution-bundle": "~4.0",
-    "symfony/swiftmailer-bundle": "~2.3",
-</pre>
-
-
 En la consola del proyecto ejecute:
 
 <pre style="font-family: Courier New;">

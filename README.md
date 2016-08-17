@@ -2,7 +2,7 @@
  <body>
 
 # kijho-help-desk
-Bundle para Symfony >= 2.8, para administrar tickets de soporte de clientes
+Bundle para Symfony 2.8 and 3.x, para administrar tickets de soporte de clientes
 
 
 <h1> Aplicación Demo</h1>
@@ -22,7 +22,7 @@ Requisitos:
 En la consola del proyecto ejecute:
 
 <pre style="font-family: Courier New;">
-    composer require kijho/kijho-help-desk dev-master
+    composer require kijho/kijho-help-desk 1.0.0
 </pre>
 
 Registramos el bundle en el archivo AppKernel.php

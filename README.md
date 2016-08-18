@@ -40,8 +40,8 @@ Editamos los proveedores de usuarios del bundle de tickets en el archivo config.
 <pre style="font-family: Courier New;">
     # bin/config.yml
     help_desk:
-        client_provider: Acme\DemoBundle\Entity\YourClient
-        operator_provider: Acme\DemoBundle\Entity\YourOperator
+        client_provider: 'Acme\DemoBundle\Entity\YourClient'
+        operator_provider: 'Acme\DemoBundle\Entity\YourOperator'
 </pre>
 
 

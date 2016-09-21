@@ -44,7 +44,7 @@ class TicketProvider {
     public function getCountClientTickets($clientId, $status = null) {
         return $this->em->getRepository('HelpDeskBundle:Ticket')->findCountTickets($clientId, $status);
     }
-    
+
     public function getCountTickets($status = null) {
         return $this->em->getRepository('HelpDeskBundle:Ticket')->findCountTickets(null, $status);
     }
@@ -70,7 +70,7 @@ class TicketProvider {
      * @return string descripcion del tiempo transcurrido
      */
     public function getElapsedTime($secs) {
-        
+
         $year = $this->translator->trans('help_desk.global.year');
         $years = $this->translator->trans('help_desk.global.years');
         $week = $this->translator->trans('help_desk.global.week');
@@ -81,59 +81,59 @@ class TicketProvider {
         $hours = $this->translator->trans('help_desk.global.hours');
         $minute = $this->translator->trans('help_desk.global.minute');
         $minutes = $this->translator->trans('help_desk.global.minutes');
-        
+        $ret = [];
         $bit = array();
-        
+
         $countYears = $secs / 31556926 % 12;
         $countWeeks = $secs / 604800 % 52;
         $countDays = $secs / 86400 % 7;
         $countHours = $secs / 3600 % 24;
         $countMinutes = $secs / 60 % 60;
         $countSeconds = $secs / 60;
-        
+
         if ($countYears > 1) {
             $bit[$years] = $countYears;
         } else {
             $bit[$year] = $countYears;
         }
-        
+
         if ($countWeeks > 1) {
             $bit[$weeks] = $countWeeks;
         } else {
             $bit[$week] = $countWeeks;
         }
-        
+
         if ($countDays > 1) {
             $bit[$days] = $countDays;
         } else {
             $bit[$day] = $countDays;
         }
-        
+
         if ($countHours > 1) {
             $bit[$hours] = $countHours;
         } else {
             $bit[$hour] = $countHours;
         }
-        
+
         if ($countMinutes > 1) {
             $bit[$minutes] = $countMinutes;
         } else {
             $bit[$minute] = $countMinutes;
         }
-        
-       /*if ($countSeconds > 1) {
-            $bit[$seconds] = $countSeconds;
-        } else {
-            $bit[$second] = $countSeconds;
-        }*/
 
+        /* if ($countSeconds > 1) {
+          $bit[$seconds] = $countSeconds;
+          } else {
+          $bit[$second] = $countSeconds;
+          } */
 
         foreach ($bit as $k => $v) {
             if ($v > 0) {
-                $ret[] = $v . ' '.$k;
+                $ret[] = $v . ' ' . $k;
             }
         }
 
         return join(' ', $ret);
     }
+
 }

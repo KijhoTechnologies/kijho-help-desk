@@ -5,7 +5,5 @@ services:
         
     help_desk_email_manager:
         class: Kijho\HelpDeskBundle\Services\EmailManager
-        arguments: 
-            requestStack:   "@request_stack"
-            container:      "@service_container"
-            entityManager:  "@doctrine.orm.entity_manager"
+        arguments: ["@request_stack","@service_container","@doctrine.orm.entity_manager"]
+
